@@ -30,7 +30,7 @@ final class DishViewCell: UITableViewCell {
         dishAmountLabel.alpha = 0
         minusButtonLabel.alpha = 0
         
-        if let imageURL = dish.imageURL, let url = URL(string: imageURL) {
+        if let imageURL = dish.image_url, let url = URL(string: imageURL) {
             dishProfileImage.loadImage(from: url)
         }
         dishNameLabel.text = dish.name

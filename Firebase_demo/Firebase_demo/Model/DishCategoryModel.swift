@@ -19,11 +19,11 @@ struct DishCategoryModel: Decodable {
             if err != nil {
                 completion(nil, err)
             } else if snapshot?.documents != nil {
-                for document in snapshot!.documents {
+                snapshot!.documents.forEach({ (document) in
                     if let dishCategory = DishCategoryModel(JSON: document.data()) {
                         dishCategories.append(dishCategory)
                     }
-                }
+                })
                 completion(dishCategories, nil)
             }
         }

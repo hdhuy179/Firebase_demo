@@ -26,6 +26,9 @@ final class OrderManagerViewController: UIViewController {
         // Do any additional setup after loading the view.
         setupView()
     }
+    deinit {
+        logger()
+    }
     
     func setupView() {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))

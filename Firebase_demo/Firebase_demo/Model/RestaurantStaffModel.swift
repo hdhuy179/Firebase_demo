@@ -8,22 +8,22 @@
 import ObjectMapper
 import Firebase
 
-struct UserModel: Decodable {
+struct RestaurantStaffModel: Decodable {
     var first_name: String!
     var last_name: String!
     var uid: String!
     
-    static func fetchData(completion: @escaping (UserModel?, Error?) -> Void) {
+    static func fetchData(completion: @escaping (RestaurantStaffModel?, Error?) -> Void) {
         let currentUser = Auth.auth().currentUser
         if let currentUser = currentUser {
             let uid = currentUser.uid
             let db = Firestore.firestore()
-            db.collection("users").document(uid).getDocument {(document, err) in
+            db.collection("restaurantStaff").document(uid).getDocument {(document, err) in
                 if err != nil {
                     completion(nil, err)
                 } else if document != nil && document!.exists {
-                    if let userProfile = UserModel(JSON: document!.data()!) {
-                        let user = userProfile
+                    if let staffProfile = RestaurantStaffModel(JSON: document!.data()!) {
+                        let user = staffProfile
                         completion(user, nil)
                     }
                 }
@@ -32,7 +32,7 @@ struct UserModel: Decodable {
     }
 }
 
-extension UserModel: Mappable {
+extension RestaurantStaffModel: Mappable {
     init?(map: Map) {
     }
     

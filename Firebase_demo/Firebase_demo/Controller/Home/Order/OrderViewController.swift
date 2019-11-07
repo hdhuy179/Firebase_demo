@@ -68,18 +68,20 @@ final class OrderViewController: UIViewController {
     }
  
     func fetchData() {
-        DishCategoryModel.fetchAllDishCategory { (data, err) -> Void in
+        DishCategoryModel.fetchAllDishCategory { [weak self] data, err -> Void in
             if err != nil {
                 print("OrderViewController: Error getting Dish Category data: \(err!.localizedDescription)")
             } else if data != nil {
-                self.dishCategories = data!
+                guard let strongSelf = self else { return }
+                strongSelf.dishCategories = data!
                 
-                self.dishCategories.reversed().forEach { (dishCategory) in
-                    DishModel.fetchDish(byCategoryID: dishCategory.id) { (data, err) in
+                strongSelf.dishCategories.reversed().forEach { (dishCategory) in
+                    DishModel.fetchDish(byCategoryID: dishCategory.id) { [weak self] data, err in
                         if err != nil {
                             print("OrderViewController: Error getting Dish data: \(err!.localizedDescription)")
                         } else if data != nil {
-                            self.dishesByCategory.append(data!)
+                            guard let strongSelf = self else { return }
+                            strongSelf.dishesByCategory.append(data!)
                         }
                     }
                 }

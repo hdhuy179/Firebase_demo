@@ -20,7 +20,7 @@ final class TableViewController: UIViewController {
     
     var isMenuShowed: Bool!
     
-    var user: UserModel!
+    var restaurantStaff: RestaurantStaffModel!
     let tableCellID = "tableCellID"
     var tables = [TableModel]()
     
@@ -31,7 +31,7 @@ final class TableViewController: UIViewController {
         self.showActivityIndicatorView()
         fetchData()
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
-            if self.user != nil && !self.tables.isEmpty {
+            if self.restaurantStaff != nil && !self.tables.isEmpty {
                 print("TableViewController: Data was fetched")
                 self.setupView()
                 self.hideActivityIndicatorView()
@@ -46,24 +46,26 @@ final class TableViewController: UIViewController {
     }
     
     func fetchData() {
-        UserModel.fetchData { (data, err) in
+        RestaurantStaffModel.fetchData {[weak self] data, err in
             if err != nil {
-                print("Error getting User Data: \(err!.localizedDescription)")
+                print("Error getting Restaurant Staff Data: \(err!.localizedDescription)")
             } else if data != nil {
-                self.user = data!
+                guard let strongSelf = self else { return }
+                strongSelf.restaurantStaff = data!
             }
         }
-        TableModel.fetchAllData { (data, err) in
+        TableModel.fetchAllData { [weak self] data, err in
             if err != nil {
                 print("Error getting Table Data: \(err!.localizedDescription)")
             } else if data != nil {
-                self.tables = data!
+                guard let strongSelf = self else { return }
+                strongSelf.tables = data!
             }
         }
     }
     func setupView() {
         isMenuShowed = false
-        userProfileNameLabel.text = "\(String(user.first_name)) \(String(user.last_name))"
+        userProfileNameLabel.text = "\(String(restaurantStaff.first_name)) \(String(restaurantStaff.last_name))"
         
 //        tableCollectionView.reloadData()
                

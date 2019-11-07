@@ -17,7 +17,7 @@ final class CartViewController: UIViewController {
     let cartCellHeight: CGFloat = 70.0
     let cartCellID = "CartViewCell"
     
-    var dishes: [DishModel]!
+    var bill: BillModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ final class CartViewController: UIViewController {
         
         self.view.layer.cornerRadius = 12
         
-        self.dishes = [DishModel]()
+        self.bill = BillModel()
         
         cartTableView.register(UINib(nibName: "CartViewCell", bundle: nil), forCellReuseIdentifier: cartCellID)
         
@@ -44,7 +44,7 @@ final class CartViewController: UIViewController {
 
 extension CartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dishes.count
+        return bill!.order_list!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

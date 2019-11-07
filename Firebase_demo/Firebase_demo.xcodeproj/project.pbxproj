@@ -46,7 +46,7 @@
 		F75096AC2355ABF7003A7D3E /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75096AB2355ABF7003A7D3E /* UserDefaults+.swift */; };
 		F75607632360937200E87E6F /* DishHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75607612360937200E87E6F /* DishHeaderViewCell.swift */; };
 		F75607642360937200E87E6F /* DishHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F75607622360937200E87E6F /* DishHeaderViewCell.xib */; };
-		F7A5A2422369471800E2B621 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A5A2412369471800E2B621 /* UserModel.swift */; };
+		F7A5A2422369471800E2B621 /* RestaurantStaffModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A5A2412369471800E2B621 /* RestaurantStaffModel.swift */; };
 		F7BD9915235DAA1E006B073C /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BD9914235DAA1E006B073C /* OrderViewController.swift */; };
 		F7D4BAD623618FB300D32F36 /* TableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D4BAD523618FB300D32F36 /* TableState.swift */; };
 /* End PBXBuildFile section */
@@ -95,7 +95,7 @@
 		F75096AB2355ABF7003A7D3E /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		F75607612360937200E87E6F /* DishHeaderViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishHeaderViewCell.swift; sourceTree = "<group>"; };
 		F75607622360937200E87E6F /* DishHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishHeaderViewCell.xib; sourceTree = "<group>"; };
-		F7A5A2412369471800E2B621 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		F7A5A2412369471800E2B621 /* RestaurantStaffModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantStaffModel.swift; sourceTree = "<group>"; };
 		F7BD9914235DAA1E006B073C /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		F7D4BAD523618FB300D32F36 /* TableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -311,7 +311,7 @@
 		F7446DE123615959004673C9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F7A5A2412369471800E2B621 /* UserModel.swift */,
+				F7A5A2412369471800E2B621 /* RestaurantStaffModel.swift */,
 				F7446DDF23615954004673C9 /* TableModel.swift */,
 				F73A514F236A80CB00DDA48A /* DishModel.swift */,
 				F72E98082370690B00BC68B9 /* DishCategoryModel.swift */,
@@ -479,7 +479,7 @@
 				F73865CA2354728B005E95A0 /* MainViewController.swift in Sources */,
 				F7446DDC23614C84004673C9 /* FloorViewCell.swift in Sources */,
 				F73A5150236A80CB00DDA48A /* DishModel.swift in Sources */,
-				F7A5A2422369471800E2B621 /* UserModel.swift in Sources */,
+				F7A5A2422369471800E2B621 /* RestaurantStaffModel.swift in Sources */,
 				F73975E323599CAD00156C6E /* RootNavigationController.swift in Sources */,
 				F73A3A39236EB39600FCCFBA /* OrderManagerViewController.swift in Sources */,
 				F73865C82354726E005E95A0 /* LoginViewController.swift in Sources */,

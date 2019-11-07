@@ -14,14 +14,14 @@ final class CartViewCell: UITableViewCell {
     @IBOutlet weak var dishPriceLabel: UILabel!
     @IBOutlet weak var dishAmountLabel: UILabel!
     
-    var dish: DishModel! {
+    var order: OrderModel! {
         didSet {
             setupView()
         }
     }
     
     func setupView() {
-        dishNameLabel.text = dish.name
+        dishNameLabel.text = order.dish_id.name
         dishPriceLabel.text = dish.priceToString()
         
         dishAmountLabel.text = "1"

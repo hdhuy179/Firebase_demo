@@ -13,8 +13,8 @@ struct DishModel: Decodable {
     var name: String? = ""
     var unit: String? = ""
     var price: Int? = 0
-    var imageURL: String? = ""
-    var categoryID: String? = ""
+    var image_url: String? = ""
+    var category_id: String? = ""
     
     func priceToString () -> String {
         if var price = self.price {
@@ -36,11 +36,11 @@ struct DishModel: Decodable {
             if err != nil {
                 completion(nil,err)
             } else if snapshot != nil {
-                for document in snapshot!.documents {
+                snapshot!.documents.forEach({ (document) in
                     if let dish = DishModel(JSON: document.data()) {
                         dishes.append(dish)
                     }
-                }
+                })
                 completion(dishes, nil)
             }
         }
@@ -49,15 +49,15 @@ struct DishModel: Decodable {
         var dishes = [DishModel]()
         
         let db = Firestore.firestore()
-        db.collection("dish").whereField("categoryID", isEqualTo: categoryID).order(by: "name").getDocuments { (snapshot, err) in
+        db.collection("dish").whereField("category_id", isEqualTo: categoryID).order(by: "price").getDocuments { (snapshot, err) in
             if err != nil {
                 completion(nil,err)
             } else if snapshot != nil {
-                for document in snapshot!.documents {
+                snapshot!.documents.forEach({ (document) in
                     if let dish = DishModel(JSON: document.data()) {
                         dishes.append(dish)
                     }
-                }
+                })
                 completion(dishes, nil)
             }
         }
@@ -99,7 +99,7 @@ extension DishModel: Mappable {
         name <- map["name"]
         unit <- map["unit"]
         price <- map["price"]
-        imageURL <- map["imageURL"]
-        categoryID <- map["categoryID"]
+        image_url <- map["image_url"]
+        category_id <- map["category_id"]
     }
 }
