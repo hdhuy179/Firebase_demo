@@ -15,8 +15,10 @@ final class DishViewCell: UITableViewCell {
     @IBOutlet weak var dishPriceLabel: UILabel!
     @IBOutlet weak var dishUnitLabel: UILabel!
     @IBOutlet weak var dishAmountLabel: UILabel!
-    @IBOutlet weak var plusButtonLabel: UIButton!
-    @IBOutlet weak var minusButtonLabel: UIButton!
+    @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var minusButton: UIButton!
+    
+    weak var delegate: OrderViewController?
     
     var dish: DishModel! {
         didSet {
@@ -24,26 +26,36 @@ final class DishViewCell: UITableViewCell {
         }
     }
     
-    private var amount: Int = 0
+    var amount: Int! = 0 {
+        didSet {
+            dishAmountLabel.text = String(amount)
+            if amount == 0 {
+                dishAmountLabel.alpha = 0
+                minusButton.alpha = 0
+            } else {
+                dishAmountLabel.alpha = 1
+                minusButton.alpha = 1
+            }
+        }
+    }
     
     func setupView() {
-        dishAmountLabel.alpha = 0
-        minusButtonLabel.alpha = 0
-        
         if let imageURL = dish.image_url, let url = URL(string: imageURL) {
             dishProfileImage.loadImage(from: url)
         }
         dishNameLabel.text = dish.name
         dishUnitLabel.text = dish.unit
-        dishPriceLabel.text = dish.priceToString()
+        if let price = dish.price {
+            dishPriceLabel.text = price.thousandUnits()
+        }
     }
 
     @IBAction func handlePlusTap(_ sender: Any) {
         amount += 1
         dishAmountLabel.text = String(amount)
         dishAmountLabel.alpha = 1
-        minusButtonLabel.alpha = 1
-        
+        minusButton.alpha = 1
+        delegate?.changeOrderAmount(dish: dish, amount: amount)
     }
     
     @IBAction func handleMinusTap(_ sender: Any) {
@@ -52,9 +64,10 @@ final class DishViewCell: UITableViewCell {
         }
         if amount == 0 {
             dishAmountLabel.alpha = 0
-            minusButtonLabel.alpha = 0
+            minusButton.alpha = 0
         }
         dishAmountLabel.text = String(amount)
+        delegate?.changeOrderAmount(dish: dish, amount: amount)
     }
     
 }

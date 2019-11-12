@@ -93,8 +93,8 @@
                 <outlet property="dishPriceLabel" destination="sZb-ld-It4" id="4SQ-cN-Fla"/>
                 <outlet property="dishProfileImage" destination="THj-dj-dMk" id="AJy-9f-N0z"/>
                 <outlet property="dishUnitLabel" destination="CTf-l9-8Jq" id="muA-qO-Zcq"/>
-                <outlet property="minusButtonLabel" destination="efJ-Av-v6n" id="bgd-HM-bWM"/>
-                <outlet property="plusButtonLabel" destination="TPh-P1-r32" id="qRX-2T-QmV"/>
+                <outlet property="minusButton" destination="efJ-Av-v6n" id="Gga-bU-LyM"/>
+                <outlet property="plusButton" destination="TPh-P1-r32" id="yLt-KK-XHO"/>
             </connections>
             <point key="canvasLocation" x="-114.49275362318842" y="142.29910714285714"/>
         </tableViewCell>

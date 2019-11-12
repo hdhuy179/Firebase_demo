@@ -29,8 +29,9 @@ final class TableViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         self.showActivityIndicatorView()
+//        let serialQueue = DispatchQueue(label: "load_data")
         fetchData()
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { (timer) in
             if self.restaurantStaff != nil && !self.tables.isEmpty {
                 print("TableViewController: Data was fetched")
                 self.setupView()
@@ -48,7 +49,7 @@ final class TableViewController: UIViewController {
     func fetchData() {
         RestaurantStaffModel.fetchData {[weak self] data, err in
             if err != nil {
-                print("Error getting Restaurant Staff Data: \(err!.localizedDescription)")
+                print("TableViewController: Error getting Restaurant Staff Data: \(err!.localizedDescription)")
             } else if data != nil {
                 guard let strongSelf = self else { return }
                 strongSelf.restaurantStaff = data!
@@ -56,10 +57,20 @@ final class TableViewController: UIViewController {
         }
         TableModel.fetchAllData { [weak self] data, err in
             if err != nil {
-                print("Error getting Table Data: \(err!.localizedDescription)")
+                print("TableViewController: Error getting Table Data: \(err!.localizedDescription)")
             } else if data != nil {
                 guard let strongSelf = self else { return }
                 strongSelf.tables = data!
+                
+                strongSelf.tables.enumerated().forEach { (index, table) in
+                    BillModel.fetchCurrentBill(ofTableID: table.id!) { (bill, err) in
+                        if err != nil {
+                            print("TableViewController: Error getting Bill Data \(err!.localizedDescription)")
+                        } else if bill != nil {
+                            strongSelf.tables[index].bill = bill!
+                        }
+                    }
+                }
             }
         }
     }
@@ -106,9 +117,9 @@ extension TableViewController: UICollectionViewDataSource {
        }
        
        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tableCellID, for: indexPath) as! TableViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tableCellID, for: indexPath) as! TableViewCell
         cell.table = tables[indexPath.item]
-           return cell
+        return cell
        }
 }
 
@@ -119,19 +130,16 @@ extension TableViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let table = tables[indexPath.item]
-        switch table.state {
-        case 0:
+        if table.bill == nil {
             let vc = UIStoryboard.OrderViewController
             vc.table = table
             App.shared.rootNagivationController.pushViewController(vc, animated: true)
-        case 1,2:
-            let vc = UIStoryboard.OrderManagerViewController
-            vc.table = table
-            App.shared.rootNagivationController.pushViewController(vc, animated: true)
-        default: return
+            return
         }
-       
         
+        let vc = UIStoryboard.OrderManagerViewController
+        vc.table = table
+        App.shared.rootNagivationController.pushViewController(vc, animated: true)
     }
 //    func showAlert(title: String, indexPath: IndexPath) {
 //        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)

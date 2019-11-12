@@ -21,17 +21,17 @@ final class TableViewCell: UICollectionViewCell {
     
     func setupView() {
         numberLabel.text = table.number
-        switch table.state {
-        case 0:
+        switch table.bill?.isBillServed() {
+        case nil:
             stateLabel.text = "Trống"
             stateLabel.backgroundColor =  UIColor.green
 //        case 1:
 //            stateLabel.text = "Đang yêu cầu thanh toán"
 //            stateLabel.backgroundColor = UIColor.red
-        case 1:
+        case false:
             stateLabel.text = "Đang đợi món"
             stateLabel.backgroundColor = UIColor.orange
-        case 2:
+        case true:
             stateLabel.text = "Đang sử dụng"
             stateLabel.backgroundColor = UIColor.yellow
         default:

@@ -16,18 +16,6 @@ struct DishModel: Decodable {
     var image_url: String? = ""
     var category_id: String? = ""
     
-    func priceToString () -> String {
-        if var price = self.price {
-            var result = ""
-            while price >= 1000 {
-                price /= 1000
-                result.append(".000")
-            }
-            return String(price) + result
-        }
-        return "Chưa cập nhật"
-    }
-    
     static func fetchAllDish(completion: @escaping ([DishModel]?, Error?) -> Void) {
         var dishes = [DishModel]()
         
@@ -45,7 +33,7 @@ struct DishModel: Decodable {
             }
         }
     }
-    static func fetchDish(byCategoryID categoryID: String ,completion: @escaping ([DishModel]?, Error?) -> Void) {
+    static func fetchDishes(byCategoryID categoryID: String ,completion: @escaping ([DishModel]?, Error?) -> Void) {
         var dishes = [DishModel]()
         
         let db = Firestore.firestore()
@@ -63,30 +51,27 @@ struct DishModel: Decodable {
         }
     }
     
-    static func fetchDish(byID id: String ,completion: @escaping (DishModel?, Error?) -> Void) {
+    static func fetchDish(byDishID id: String ,completion: @escaping (DishModel?, Error?) -> Void) {
         var dish = DishModel()
         let db = Firestore.firestore()
         db.collection("dish").document(id).getDocument { (snapshot, err) in
             if err != nil {
                 completion(nil,err)
-            } else if snapshot != nil {
+            } else if snapshot != nil, snapshot!.exists {
                 if let data = snapshot!.data() {
                     if let _ = DishModel(JSON: data) {
                         dish = DishModel(JSON: data)!
                     }
                 }
+                completion(dish, nil)
             }
-            completion(dish, nil)
         }
     }
 }
 
 extension DishModel: Hashable {
-    static func == (element1: DishModel, element2: DishModel) -> Bool {
-        if element1.id == element2.id {
-            return true
-        }
-        return false
+    static func == (lhs: DishModel, rhs: DishModel) -> Bool {
+        return lhs.id == rhs.id
     }
 }
 

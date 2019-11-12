@@ -12,7 +12,7 @@
             <connections>
                 <outlet property="cartTableView" destination="KBC-6f-EnI" id="DL3-vE-96u"/>
                 <outlet property="handleArea" destination="av0-U2-AfK" id="Cwh-1y-YPZ"/>
-                <outlet property="totalPayment" destination="XaI-pf-8Tg" id="Yvd-v7-cFF"/>
+                <outlet property="totalPaymentLabel" destination="XaI-pf-8Tg" id="Yvd-v7-cFF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

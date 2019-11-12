@@ -31,11 +31,8 @@ struct DishCategoryModel: Decodable {
 }
 
 extension DishCategoryModel: Hashable {
-    static func == (element1: DishCategoryModel, element2: DishCategoryModel) -> Bool {
-        if element1.id == element2.id {
-            return true
-        }
-        return false
+    static func == (lhs: DishCategoryModel, rhs: DishCategoryModel) -> Bool {
+        return lhs.id == rhs.id 
     }
 }
 

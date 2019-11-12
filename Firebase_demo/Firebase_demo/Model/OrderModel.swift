@@ -17,10 +17,18 @@ import Firebase
 
 struct OrderModel: Decodable {
     var id: String!
-    var dish_name: String? = ""
-    var dish_price: Int? = 0
+    var dish: DishModel = DishModel()
     var amount: Int? = 1
     var served_amount: Int? = 0
+    
+    func checkOrderServed() -> Bool {
+        if let amount = amount, let served_amount = served_amount {
+            if served_amount / amount == 1 {
+                return true
+            }
+        }
+        return false
+    }
     
     static func fetchAllOrder(byBillID billID: String, completion: @escaping ([OrderModel]?, Error?) -> Void) {
         var orders = [OrderModel]()
@@ -29,14 +37,29 @@ struct OrderModel: Decodable {
             if err != nil {
                 completion(nil, err)
             } else if snapshot != nil {
-                snapshot!.documents.forEach({ (document) in
-                    if let order = OrderModel(JSON: document.data()) {
-                        orders.append(order)
+                snapshot!.documents.forEach { document in
+                    if var order = OrderModel(JSON: document.data()) {
+                        DishModel.fetchDish(byDishID: order.dish.id) { (data, err) in
+                            if err != nil {
+                                print("OrderModel: Error getting Dish data \(err!.localizedDescription)")
+                            } else if data != nil {
+                                order.dish = data!
+                            }
+                            orders.append(order)
+                            if (document == snapshot!.documents.last) {
+                                completion(orders, nil)
+                            }
+                        }
                     }
-                })
-                completion(orders, nil)
+                }
             }
         }
+    }
+}
+
+extension OrderModel: Hashable {
+    static func == (lhs: OrderModel, rhs: OrderModel) -> Bool {
+        return lhs.id == rhs.id
     }
 }
 
@@ -46,8 +69,7 @@ extension OrderModel: Mappable {
     
     mutating func mapping(map: Map) {
         id <- map["id"]
-        dish_name <- map["dish_name"]
-        dish_price <- map["dish_price"]
+        dish.id <- map["dish_id"]
         amount <- map["amount"]
         served_amount <- map["served_amount"]
     }

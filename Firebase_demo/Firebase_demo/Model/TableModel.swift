@@ -9,11 +9,14 @@ import ObjectMapper
 import Firebase
 
 struct TableModel: Decodable {
-    var id: String? = ""
+    // Database Variable
+    var id: String!
     var number: String? = "000"
     var state: Int? = -1
+    //Local Variable
+    var bill: BillModel?
     
-    static func fetchAllData(completion: @escaping (_ tables: [TableModel]?, _ error: Error?) -> ()) {
+    static func fetchAllData(completion: @escaping ([TableModel]?, Error?) -> Void) {
         var tables = [TableModel]()
         let db = Firestore.firestore()
         
@@ -22,12 +25,12 @@ struct TableModel: Decodable {
                 print("Error getting Table Data: \(err!.localizedDescription)")
                 completion(nil, err)
             } else if snapshot != nil {
-                for document in snapshot!.documents {
+                snapshot!.documents.forEach({ (document) in
                     if let table = TableModel(JSON: document.data()) {
                         tables.append(table)
                     }
-                    completion(tables, nil)
-                }
+                })
+                completion(tables, nil)
             }
         }
     }

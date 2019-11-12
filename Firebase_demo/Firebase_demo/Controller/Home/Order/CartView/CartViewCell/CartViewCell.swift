@@ -14,22 +14,39 @@ final class CartViewCell: UITableViewCell {
     @IBOutlet weak var dishPriceLabel: UILabel!
     @IBOutlet weak var dishAmountLabel: UILabel!
     
+    weak var delegate: OrderViewController?
+    
     var order: OrderModel! {
         didSet {
             setupView()
         }
     }
     
-    func setupView() {
-        dishNameLabel.text = order.dish_id.name
-        dishPriceLabel.text = dish.priceToString()
-        
-        dishAmountLabel.text = "1"
-    }
+    private var amount: Int = 0
     
-    @IBAction func minusButtonTapped(_ sender: Any) {
+    func setupView() {
+        
+        dishNameLabel.text = order.dish.name
+        if let price = order.dish.price {
+            dishPriceLabel.text = price.thousandUnits()
+        }
+        if let _ = order.amount {
+            amount = order.amount!
+            dishAmountLabel.text = String(order.amount!)
+        }
     }
     
     @IBAction func plusButtonTapped(_ sender: Any) {
+        amount += 1
+        dishAmountLabel.text = String(amount)
+        delegate?.changeOrderAmount(dish: order.dish, amount: amount)
     }
+    
+    @IBAction func minusButtonTapped(_ sender: Any) {
+            if amount > 0 {
+                amount -= 1
+            }
+            dishAmountLabel.text = String(amount)
+            delegate?.changeOrderAmount(dish: order.dish, amount: amount)
+        }
 }

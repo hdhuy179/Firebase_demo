@@ -13,6 +13,10 @@ enum CartState {
     case collapsed
 }
 
+protocol OrderViewControllerDelegate: class {
+    func changeOrderAmount(dish: DishModel, amount: Int)
+}
+
 final class OrderViewController: UIViewController {
     
     
@@ -57,9 +61,7 @@ final class OrderViewController: UIViewController {
                 self.setupView()
                 self.hideActivityIndicatorView()
                 timer.invalidate()
-                
             }
-            
         }
     }
     
@@ -76,7 +78,7 @@ final class OrderViewController: UIViewController {
                 strongSelf.dishCategories = data!
                 
                 strongSelf.dishCategories.reversed().forEach { (dishCategory) in
-                    DishModel.fetchDish(byCategoryID: dishCategory.id) { [weak self] data, err in
+                    DishModel.fetchDishes(byCategoryID: dishCategory.id) { [weak self] data, err in
                         if err != nil {
                             print("OrderViewController: Error getting Dish data: \(err!.localizedDescription)")
                         } else if data != nil {
@@ -87,7 +89,11 @@ final class OrderViewController: UIViewController {
                 }
             }
         }
+        if table?.bill == nil {
+            table?.bill = BillModel()
+        }
     }
+    
     func setupView() {
         
         dishTableView.dataSource = self
@@ -116,6 +122,8 @@ final class OrderViewController: UIViewController {
         }
         
         cartViewController = CartViewController(nibName: "CartViewController", bundle: nil)
+        cartViewController.delegate = self
+        
         self.addChild(cartViewController)
         self.view.addSubview(cartViewController.view)
         
@@ -256,6 +264,17 @@ extension OrderViewController: UITableViewDataSource {
 
         let cell = dishTableView.dequeueReusableCell(withIdentifier: dishCellID, for: indexPath) as! DishViewCell
         cell.dish = dishesByCategory[indexPath.section][indexPath.item]
+        if let _ = table?.bill?.order_list {
+            for order in table!.bill!.order_list! {
+                if order.dish == cell.dish {
+                    cell.amount = order.amount
+                    cell.delegate = self
+                    return cell
+                }
+            }
+        }
+        cell.amount = 0
+        cell.delegate = self
         return cell
     }
     
@@ -271,11 +290,16 @@ extension OrderViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        cartViewController.dishes.
-        cartViewController.dishes.append(dishesByCategory[indexPath.section][indexPath.item])
-        cartViewController.cartTableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
+
+extension OrderViewController: OrderViewControllerDelegate {
+    func changeOrderAmount(dish: DishModel, amount: Int) {
+        table?.bill?.addOrder(withDish: dish, amount: amount)
+        cartViewController.bill = table?.bill
+        dishTableView.reloadData()
+       }
 }
 
 extension OrderViewController: UITableViewDelegate {

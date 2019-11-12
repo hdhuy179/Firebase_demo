@@ -104,4 +104,15 @@ extension OrderManagerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return orderCellHeight
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "delete") { (action, indexPath) in
+            
+        }
+        let edit = UITableViewRowAction(style: .normal, title: "edit") { (action, indexPath) in
+            
+        }
+        edit.backgroundColor = .orange
+        return [delete, edit]
+    }
 }

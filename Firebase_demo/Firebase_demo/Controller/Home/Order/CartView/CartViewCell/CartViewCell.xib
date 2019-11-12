@@ -40,7 +40,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="bold"/>
                                 </state>
                                 <connections>
-                                    <action selector="minusButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="slA-9H-j2b"/>
+                                    <action selector="minusButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xMY-9Y-VFz"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACB-lo-3vT">
@@ -57,7 +57,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="bold"/>
                                 </state>
                                 <connections>
-                                    <action selector="plusButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6a6-fm-FXR"/>
+                                    <action selector="plusButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CIT-fh-MbR"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -76,11 +76,11 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="dishAmountLabel" destination="ACB-lo-3vT" id="ulR-Zb-5Tf"/>
-                <outlet property="dishNameLabel" destination="hmC-NR-QPN" id="TGu-Gn-css"/>
-                <outlet property="dishPriceLabel" destination="pPp-Cu-HK5" id="DhB-wr-5WX"/>
+                <outlet property="dishAmountLabel" destination="ACB-lo-3vT" id="KRk-Ij-F46"/>
+                <outlet property="dishNameLabel" destination="hmC-NR-QPN" id="sPH-nE-2so"/>
+                <outlet property="dishPriceLabel" destination="pPp-Cu-HK5" id="ABt-nb-BAV"/>
             </connections>
-            <point key="canvasLocation" x="181.15942028985509" y="101.45089285714285"/>
+            <point key="canvasLocation" x="-106" y="65"/>
         </tableViewCell>
     </objects>
     <resources>
