@@ -51,7 +51,7 @@ final class CartViewController: UIViewController {
     }
     @IBAction func handleOrderTapped(_ sender: Any) {
         if let _ = delegate?.table {
-            BillModel.checkOutBill(table: delegate!.table!) { _,_ in
+            BillModel.checkOutBill(forTable: delegate!.table!) { _,_ in
             }
             delegate!.navigationController?.popViewController(animated: true)
         }

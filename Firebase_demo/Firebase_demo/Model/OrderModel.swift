@@ -16,10 +16,13 @@ import Firebase
 //}
 
 struct OrderModel: Decodable {
+    //
     var id: String! = UUID().uuidString
-    var dish: DishModel = DishModel()
     var amount: Int? = 1
     var served_amount: Int? = 0
+    var dish_id: String? = ""
+    //
+    var dish: DishModel!
     
     func checkOrderServed() -> Bool {
         if let amount = amount, let served_amount = served_amount {
@@ -33,27 +36,47 @@ struct OrderModel: Decodable {
     static func fetchAllOrder(byBillID billID: String, completion: @escaping ([OrderModel]?, Error?) -> Void) {
         var orders = [OrderModel]()
         let db = Firestore.firestore()
-    db.collection("bill").document(billID).collection("order").getDocuments { (snapshot, err) in
-            if err != nil {
-                completion(nil, err)
-            } else if snapshot != nil {
-                snapshot!.documents.forEach { document in
-                    if var order = OrderModel(JSON: document.data()) {
-                        DishModel.fetchDish(byDishID: order.dish.id) { (data, err) in
-                            if err != nil {
-                                print("OrderModel: Error getting Dish data \(err!.localizedDescription)")
-                            } else if data != nil {
-                                order.dish = data!
-                                orders.append(order)
-                                if (document == snapshot!.documents.last) {
+        db.collection("bill").document(billID).collection("order")
+            .getDocuments { (snapshot, err) in
+                if err != nil {
+                    completion(nil, err)
+                } else if snapshot != nil, !snapshot!.documents.isEmpty {
+                    snapshot!.documents.forEach { (document) in
+                        if let order = OrderModel(JSON: document.data()) {
+                            orders.append(order)
+                        }
+                    }
+                    
+                    orders.enumerated().forEach { (index, order) in
+                        if let dishID = order.dish_id {
+                            DishModel.fetchDish(byDishID: dishID) { (dish, err) in
+                                if err != nil {
+                                    completion(nil, err)
+                                } else if dish != nil {
+                                    orders[index].dish = dish!
+                                }
+//                                for order in orders {
+//                                    if order.dish == nil {
+//                                        break
+//                                    }
+//                                    completion(orders, nil)
+//                                }
+                                if !orders.contains(where: { (order) -> Bool in
+                                    if order.dish == nil {
+                                        return true
+                                    }
+                                    return false
+                                }) {
                                     completion(orders, nil)
                                 }
                             }
                         }
                     }
+                    
+                } else {
+                    completion(nil, nil)
                 }
             }
-        }
     }
 }
 
@@ -69,7 +92,7 @@ extension OrderModel: Mappable {
     
     mutating func mapping(map: Map) {
         id <- map["id"]
-        dish.id <- map["dish_id"]
+        dish_id <- map["dish_id"]
         amount <- map["amount"]
         served_amount <- map["served_amount"]
     }

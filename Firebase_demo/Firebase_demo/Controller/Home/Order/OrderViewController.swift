@@ -54,12 +54,15 @@ final class OrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
-//        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
-//            if !self.dishesByCategory.isEmpty && !self.dishCategories.isEmpty{
-//
-//                timer.invalidate()
-//            }
-//        }
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
+            if !self.dishesByCategory.isEmpty && !self.dishCategories.isEmpty{
+                print("OrderViewController: Data was fetched")
+                self.setupCart()
+                self.setupView()
+                self.hideActivityIndicatorView()
+                timer.invalidate()
+            }
+        }
     }
     
     deinit {
@@ -82,12 +85,12 @@ final class OrderViewController: UIViewController {
                         } else if data != nil {
                             strongSelf.dishesByCategory.append(data!)
                         }
-                        if dishCategory == strongSelf.dishCategories.last {
-                            print("OrderViewController: Data was fetched")
-                            strongSelf.setupCart()
-                            strongSelf.setupView()
-                            strongSelf.hideActivityIndicatorView()
-                        }
+//                        if dishCategory == strongSelf.dishCategories.last {
+//                            print("OrderViewController: Data was fetched")
+//                            strongSelf.setupCart()
+//                            strongSelf.setupView()
+//                            strongSelf.hideActivityIndicatorView()
+//                        }
                     }
                 }
             }

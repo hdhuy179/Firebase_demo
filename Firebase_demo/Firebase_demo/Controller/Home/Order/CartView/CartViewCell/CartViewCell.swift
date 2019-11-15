@@ -26,8 +26,8 @@ final class CartViewCell: UITableViewCell {
     
     func setupView() {
         
-        dishNameLabel.text = order.dish.name
-        if let price = order.dish.price {
+        dishNameLabel.text = order.dish?.name
+        if let price = order.dish?.price {
             dishPriceLabel.text = price.splittedByThousandUnits()
         }
         if let _ = order.amount {
@@ -39,7 +39,7 @@ final class CartViewCell: UITableViewCell {
     @IBAction func plusButtonTapped(_ sender: Any) {
         amount += 1
         dishAmountLabel.text = String(amount)
-        delegate?.changeOrderAmount(dish: order.dish, amount: amount)
+        delegate?.changeOrderAmount(dish: order.dish!, amount: amount)
     }
     
     @IBAction func minusButtonTapped(_ sender: Any) {
@@ -47,6 +47,6 @@ final class CartViewCell: UITableViewCell {
                 amount -= 1
             }
             dishAmountLabel.text = String(amount)
-            delegate?.changeOrderAmount(dish: order.dish, amount: amount)
+        delegate?.changeOrderAmount(dish: order.dish!, amount: amount)
         }
 }

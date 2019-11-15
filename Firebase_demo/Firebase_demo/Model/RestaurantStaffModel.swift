@@ -9,9 +9,9 @@ import ObjectMapper
 import Firebase
 
 struct RestaurantStaffModel: Decodable {
-    var first_name: String!
-    var last_name: String!
-    var uid: String!
+    var first_name: String! = ""
+    var last_name: String! = ""
+    var uid: String! = ""
     
     static func fetchUserData(completion: @escaping (RestaurantStaffModel?, Error?) -> Void) {
         if let currentUser = Auth.auth().currentUser {

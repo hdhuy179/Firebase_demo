@@ -79,7 +79,7 @@ final class OrderManagerViewController: UIViewController {
     
     @IBAction func handlePaymentButtonTapped(_ sender: Any) {
         table.bill?.is_paid = true
-        BillModel.checkOutBill(table: table) { (_, _) in
+        BillModel.checkOutBill(forTable: table) { (_, _) in
             App.shared.rootNagivationController.popViewController(animated: true)
         }
     }
@@ -198,7 +198,7 @@ extension OrderManagerViewController: OrderManagerViewControllerDelegate {
                 }
             }
         }
-        BillModel.checkOutBill(table: self.table) { (bill, err) in
+        BillModel.checkOutBill(forTable: self.table) { (bill, err) in
             if err != nil {
                 print("BillModel: Error check out Bill \(self.table.bill!.id!) \(err!.localizedDescription)")
             } else if bill != nil {

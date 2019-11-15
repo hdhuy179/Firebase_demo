@@ -65,12 +65,12 @@ struct BillModel: Decodable {
                     }
                 }
             }
-            let order = OrderModel(dish: dish, amount: amount, served_amount: 0)
+            let order = OrderModel(amount: amount, served_amount: 0, dish: dish)
             order_list!.append(order)
             return
         }
         order_list = [OrderModel]()
-        let order = OrderModel(dish: dish, amount: amount, served_amount: 0)
+        let order = OrderModel(amount: amount, served_amount: 0, dish: dish)
         order_list!.append(order)
     }
     
@@ -98,12 +98,12 @@ struct BillModel: Decodable {
                     }
                 }
             } else {
-                completion(nil, nil)
+                completion(bill, nil)
             }
         }
     }
     
-    static func checkOutBill(table: TableModel, completion: @escaping (BillModel?, Error?) -> Void) {
+    static func checkOutBill(forTable table: TableModel, completion: @escaping (BillModel?, Error?) -> Void) {
         let db = Firestore.firestore()
         
         if let _ = table.bill, let _ = table.bill!.id, let _ = table.id, let _ = table.bill!.is_paid, let _ = table.bill!.order_list {
@@ -132,6 +132,36 @@ struct BillModel: Decodable {
             })
         }
     }
+    
+//    static func updateBill(forTable table: TableModel, completion: @escaping (BillModel?, Error?) -> Void) {
+//        let db = Firestore.firestore()
+//        
+//        if let _ = table.bill, let _ = table.bill!.id, let _ = table.id, let _ = table.bill!.is_paid, let _ = table.bill!.order_list {
+//            db.collection("bill").document(table.bill!.id!).setData(["id": table.bill!.id!, "table_id": table.id!, "is_paid": table.bill!.is_paid!]) { err in
+//                if err != nil {
+//                    completion(nil, err)
+//                    return
+//                } else {
+//                    print("BillModel: Update Bill \(table.bill!.id!) successful")
+//                }
+//            }
+//            table.bill!.order_list!.forEach({ order in
+//                if let _ = order.id, let _ = order.dish.id, let _ = order.amount, let _ = order.served_amount {
+//                    db.collection("bill").document(table.bill!.id!).collection("order").document(order.id!).setData(["id": order.id!, "dish_id": order.dish.id!, "amount": order.amount!, "served_amount": order.served_amount!]) { err in
+//                        if err != nil {
+//                            completion(nil, err)
+//                            return
+//                        } else {
+//                            print("BillModel: Update Order \(order.id!) successful")
+//                        }
+//                        if order == table.bill!.order_list!.last{
+//                            completion(table.bill!, nil)
+//                        }
+//                    }
+//                }
+//            })
+//        }
+//    }
     
 //    static func updateBill(ofTable table: TableModel) {
 //        let db = Firestore.firestore()

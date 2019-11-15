@@ -21,7 +21,7 @@ final class TableViewController: UIViewController {
     @IBOutlet weak var userProfileNameLabel: UILabel!
     
     
-    var isMenuShowed: Bool!
+    var isMenuShowed: Bool! = false
     
     var restaurantStaff: RestaurantStaffModel!
     let tableCellID = "tableCellID"
@@ -31,19 +31,8 @@ final class TableViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-//        let serialQueue = DispatchQueue(label: "load_data")
+        setupView()
         fetchData()
-//        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { (timer) in
-//            if self.restaurantStaff != nil && !self.tables.isEmpty {
-//                print("TableViewController: Data was fetched")
-//                self.tableCollectionView.reloadData()
-//                self.setupView()
-//                self.hideActivityIndicatorView()
-//                timer.invalidate()
-//                print(self.tables)
-//            }
-//        }
-        
     }
     
     deinit {
@@ -53,44 +42,33 @@ final class TableViewController: UIViewController {
     func fetchData() {
         self.showActivityIndicatorView()
         RestaurantStaffModel.fetchUserData {[weak self] data, err in
+            guard let strongSelf = self else { return }
             if err != nil {
                 print("TableViewController: Error getting Restaurant Staff Data: \(err!.localizedDescription)")
             } else if data != nil {
-                guard let strongSelf = self else { return }
                 strongSelf.restaurantStaff = data!
-                strongSelf.setupView()
-            }
-        }
-        TableModel.fetchAllTableData { [weak self] data, err in
-            if err != nil {
-                print("TableViewController: Error getting Table Data: \(err!.localizedDescription)")
-            } else if data != nil {
-                guard let strongSelf = self else { return }
-                strongSelf.tables = data!
                 
-                strongSelf.tables.enumerated().forEach { (index, table) in
-                    BillModel.fetchCurrentBill(ofTableID: table.id!) { (bill, err) in
-                        if err != nil {
-                            print("TableViewController: Error getting Bill Data \(err!.localizedDescription)")
-                        } else {
-                            strongSelf.tables[index].bill = bill
-                            if table == strongSelf.tables.last {
-                                print("TableViewController: Data was fetched")
-                                print(strongSelf.tables)
-                                strongSelf.tableCollectionView.reloadData()
-                                strongSelf.hideActivityIndicatorView()
-                            }
-                        }
+                TableModel.fetchAllTableData { [weak self] data, err in
+                    guard let strongSelf = self else { return }
+                    if err != nil {
+                        print("TableViewController: Error getting Table Data: \(err!.localizedDescription)")
+                    } else {
+                        strongSelf.tables = data!
                     }
+                    strongSelf.setupData()
                 }
             }
         }
     }
+    func setupData() {
+        userProfileNameLabel.text = "\(String(restaurantStaff.first_name)) \(String(restaurantStaff.last_name))"
+        self.tableCollectionView.reloadData()
+        self.hideActivityIndicatorView()
+        print("TableViewController: Data was fetched")
+    }
+    
     func setupView() {
         isMenuShowed = false
-        userProfileNameLabel.text = "\(String(restaurantStaff.first_name)) \(String(restaurantStaff.last_name))"
-        
-//        tableCollectionView.reloadData()
                
         tableCollectionView.dataSource = self
         tableCollectionView.delegate = self
@@ -143,7 +121,7 @@ extension TableViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let table = tables[indexPath.item]
-        if table.bill == nil {
+        if table.bill?.order_list == nil {
             let vc = UIStoryboard.OrderViewController
             vc.table = table
             vc.delegate = self
