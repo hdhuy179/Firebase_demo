@@ -40,6 +40,8 @@ extension UIViewController {
 //        Timer.scheduledTimer(withTimeInterval: 20.0, repeats: false) { (timer) in
 //            if backgroundView != nil {
 //                // Do something in here
+//                self.hideActivityIndicatorView()
+//                App.shared.transitionToMainView()
 //            }
 //        }
     }

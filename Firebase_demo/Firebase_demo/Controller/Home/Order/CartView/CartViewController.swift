@@ -18,23 +18,16 @@ final class CartViewController: UIViewController {
     
     let cartCellHeight: CGFloat = 70.0
     let cartCellID = "CartViewCell"
-    var totalPayment: Int = 0
+    var totalPayment: Double = 0
     
     var bill: BillModel? {
         didSet {
             cartTableView.reloadData()
-            totalPayment = 0
-            if let orderList = bill!.order_list {
-                orderList.forEach({ (order) in
-                    if let price = order.dish.price, let amount = order.amount {
-                        totalPayment += price * amount
-                    }
-                })
-                if totalPayment == 0 {
-                    totalPaymentLabel.text = ""
-                } else {
-                    totalPaymentLabel.text = totalPayment.thousandUnits()
-                }
+            totalPayment = bill!.getTotalPayment()
+            if totalPayment == 0 {
+                totalPaymentLabel.text = ""
+            } else {
+                totalPaymentLabel.text = totalPayment.splittedByThousandUnits()
             }
         }
     }
@@ -57,6 +50,11 @@ final class CartViewController: UIViewController {
         cartTableView.register(UINib(nibName: "CartViewCell", bundle: nil), forCellReuseIdentifier: cartCellID)
     }
     @IBAction func handleOrderTapped(_ sender: Any) {
+        if let _ = delegate?.table {
+            BillModel.checkOutBill(table: delegate!.table!) { _,_ in
+            }
+            delegate!.navigationController?.popViewController(animated: true)
+        }
     }
 }
 

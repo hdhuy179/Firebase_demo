@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		305917A472AFBBB9EE257802 /* Pods_Firebase_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D88D1A3ADCF6BE311D7285F /* Pods_Firebase_demo.framework */; };
-		F7000B7C237AA50200D05E62 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7000B7B237AA50200D05E62 /* Int+.swift */; };
+		F7000B7C237AA50200D05E62 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7000B7B237AA50200D05E62 /* Double+.swift */; };
 		F71F04DA23571DFC00688DC0 /* loginbg.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F71F04D923571DFC00688DC0 /* loginbg.mp4 */; };
 		F72AEBBD236359AF0033D3B6 /* CartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72AEBBB236359AF0033D3B6 /* CartViewCell.swift */; };
 		F72AEBBE236359AF0033D3B6 /* CartViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F72AEBBC236359AF0033D3B6 /* CartViewCell.xib */; };
@@ -56,7 +56,7 @@
 		17C66F1DEB7DEB8660D22BE9 /* Pods-Firebase_demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase_demo.debug.xcconfig"; path = "Target Support Files/Pods-Firebase_demo/Pods-Firebase_demo.debug.xcconfig"; sourceTree = "<group>"; };
 		4D88D1A3ADCF6BE311D7285F /* Pods_Firebase_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Firebase_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECA94A549FFAA52BE0B6A90F /* Pods-Firebase_demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Firebase_demo.release.xcconfig"; path = "Target Support Files/Pods-Firebase_demo/Pods-Firebase_demo.release.xcconfig"; sourceTree = "<group>"; };
-		F7000B7B237AA50200D05E62 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
+		F7000B7B237AA50200D05E62 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		F71F04D923571DFC00688DC0 /* loginbg.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = loginbg.mp4; sourceTree = "<group>"; };
 		F72AEBBB236359AF0033D3B6 /* CartViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewCell.swift; sourceTree = "<group>"; };
 		F72AEBBC236359AF0033D3B6 /* CartViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartViewCell.xib; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 				F73865D123547EF1005E95A0 /* UIViewController+.swift */,
 				F73865D323548171005E95A0 /* UIStoryboard+.swift */,
 				F7413DC9237146B2005ED5CB /* UIImageView+.swift */,
-				F7000B7B237AA50200D05E62 /* Int+.swift */,
+				F7000B7B237AA50200D05E62 /* Double+.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -285,9 +285,9 @@
 			isa = PBXGroup;
 			children = (
 				F7BD9914235DAA1E006B073C /* OrderViewController.swift */,
-				F7A5A2402369453300E2B621 /* CartView */,
 				F7446DD723614744004673C9 /* DishHeaderViewCell */,
 				F7446DD62361472D004673C9 /* DishViewCell */,
+				F7A5A2402369453300E2B621 /* CartView */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -486,7 +486,7 @@
 				F73975E323599CAD00156C6E /* RootNavigationController.swift in Sources */,
 				F73A3A39236EB39600FCCFBA /* OrderManagerViewController.swift in Sources */,
 				F73865C82354726E005E95A0 /* LoginViewController.swift in Sources */,
-				F7000B7C237AA50200D05E62 /* Int+.swift in Sources */,
+				F7000B7C237AA50200D05E62 /* Double+.swift in Sources */,
 				F732E5C9236B175900B7CFAF /* CartViewController.swift in Sources */,
 				F73865D423548171005E95A0 /* UIStoryboard+.swift in Sources */,
 				F73865AF23545B58005E95A0 /* AppDelegate.swift in Sources */,

@@ -28,7 +28,7 @@ final class CartViewCell: UITableViewCell {
         
         dishNameLabel.text = order.dish.name
         if let price = order.dish.price {
-            dishPriceLabel.text = price.thousandUnits()
+            dishPriceLabel.text = price.splittedByThousandUnits()
         }
         if let _ = order.amount {
             amount = order.amount!

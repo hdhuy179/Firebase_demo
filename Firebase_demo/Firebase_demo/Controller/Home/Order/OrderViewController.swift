@@ -22,6 +22,8 @@ final class OrderViewController: UIViewController {
     
     @IBOutlet weak var dishTableView: UITableView!
     
+    weak var delegate: TableViewController?
+    
     // Order View
     let dishCellID = "dishCellID"
     let dishHeaderCellID = "dishHeaderCellID"
@@ -51,18 +53,13 @@ final class OrderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.showActivityIndicatorView()
         fetchData()
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
-            if !self.dishesByCategory.isEmpty && !self.dishCategories.isEmpty{
-                print("OrderViewController: Data was fetch")
-                self.setupCart()
-                self.setupView()
-                self.hideActivityIndicatorView()
-                timer.invalidate()
-            }
-        }
+//        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
+//            if !self.dishesByCategory.isEmpty && !self.dishCategories.isEmpty{
+//
+//                timer.invalidate()
+//            }
+//        }
     }
     
     deinit {
@@ -70,20 +67,26 @@ final class OrderViewController: UIViewController {
     }
  
     func fetchData() {
+        self.showActivityIndicatorView()
         DishCategoryModel.fetchAllDishCategory { [weak self] data, err -> Void in
+            guard let strongSelf = self else { return }
             if err != nil {
                 print("OrderViewController: Error getting Dish Category data: \(err!.localizedDescription)")
             } else if data != nil {
-                guard let strongSelf = self else { return }
                 strongSelf.dishCategories = data!
                 
-                strongSelf.dishCategories.reversed().forEach { (dishCategory) in
-                    DishModel.fetchDishes(byCategoryID: dishCategory.id) { [weak self] data, err in
+                strongSelf.dishCategories.reversed().forEach { dishCategory in
+                    DishModel.fetchDishes(byCategoryID: dishCategory.id) { data, err in
                         if err != nil {
                             print("OrderViewController: Error getting Dish data: \(err!.localizedDescription)")
                         } else if data != nil {
-                            guard let strongSelf = self else { return }
                             strongSelf.dishesByCategory.append(data!)
+                        }
+                        if dishCategory == strongSelf.dishCategories.last {
+                            print("OrderViewController: Data was fetched")
+                            strongSelf.setupCart()
+                            strongSelf.setupView()
+                            strongSelf.hideActivityIndicatorView()
                         }
                     }
                 }
@@ -137,7 +140,7 @@ final class OrderViewController: UIViewController {
         cartViewController.view.frame.origin.y = self.view.frame.height - startCartHeight
         cartViewController.view.clipsToBounds = true
 
-//        cartViewController.view.isHidden = true
+        cartViewController.view.isHidden = true
         cartViewController.cartTableView.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleCartTap))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleCartPan))
@@ -236,6 +239,13 @@ final class OrderViewController: UIViewController {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         }
     }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        if parent == nil {
+            delegate?.fetchData()
+//            delegate?.tableCollectionView.reloadData()
+        }
+    }
 }
 
 extension OrderViewController: UITableViewDataSource {
@@ -296,8 +306,15 @@ extension OrderViewController: UITableViewDataSource {
 
 extension OrderViewController: OrderViewControllerDelegate {
     func changeOrderAmount(dish: DishModel, amount: Int) {
-        table?.bill?.addOrder(withDish: dish, amount: amount)
+        table?.bill?.updateOrder(withDish: dish, amount: amount)
         cartViewController.bill = table?.bill
+        if let _ = table?.bill?.order_list {
+            if table!.bill!.order_list!.isEmpty {
+                cartViewController.view.isHidden = true
+            } else {
+                cartViewController.view.isHidden = false
+            }
+        }
         dishTableView.reloadData()
        }
 }

@@ -168,6 +168,8 @@
                         <outlet property="leftTableCollectionViewConstrant" destination="hYD-bl-qD2" id="jVH-hW-jOQ"/>
                         <outlet property="tableCollectionView" destination="jOD-tj-cqk" id="z2A-Rk-VZD"/>
                         <outlet property="userProfileNameLabel" destination="DR4-6x-atl" id="f5R-L9-uMQ"/>
+                        <segue destination="vte-lz-6Dd" kind="push" id="BvE-oU-Lt7"/>
+                        <segue destination="7KL-RK-d2n" kind="push" id="BNc-R4-gVn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CnA-8e-asr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -183,7 +185,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="OrderViewController" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dG6-jP-Fss">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
@@ -214,49 +216,55 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7X5-LQ-U6d">
-                                <rect key="frame" x="0.0" y="44" width="414" height="612"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="519"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Khách đưa:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z69-kT-AIR">
-                                <rect key="frame" x="10.000000000000007" y="676" width="113.66666666666669" height="28"/>
+                                <rect key="frame" x="10.000000000000007" y="627" width="113.66666666666669" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tổng hóa đơn:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faE-Pp-aPb">
-                                <rect key="frame" x="10" y="714" width="142" height="28"/>
+                                <rect key="frame" x="10" y="665" width="142" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MLF-5h-hGm">
-                                <rect key="frame" x="0.0" y="810" width="414" height="42"/>
+                                <rect key="frame" x="0.0" y="761" width="414" height="42"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Thanh toán">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="handlePaymentButtonTapped:" destination="7KL-RK-d2n" eventType="touchUpInside" id="uz4-aa-jqd"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trả lại:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76j-n4-ApA">
-                                <rect key="frame" x="9.9999999999999964" y="752" width="63.666666666666657" height="28"/>
+                                <rect key="frame" x="9.9999999999999964" y="703" width="63.666666666666657" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.000.000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fzf-gF-oUq">
-                                <rect key="frame" x="267" y="714" width="137" height="28"/>
+                                <rect key="frame" x="267" y="665" width="137" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.000.000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNT-Bl-fEh">
-                                <rect key="frame" x="267" y="752" width="137" height="28"/>
+                                <rect key="frame" x="267" y="703" width="137" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Or-8X-Qus">
-                                <rect key="frame" x="204" y="671.66666666666663" width="200" height="36"/>
+                                <rect key="frame" x="204" y="622.66666666666663" width="200" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="hOM-Ku-EfG"/>
                                 </constraints>
@@ -290,8 +298,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="Jqx-sD-jSs"/>
                     <connections>
-                        <outlet property="OrderTableView" destination="7X5-LQ-U6d" id="2B9-od-4pf"/>
+                        <outlet property="excessCashLabel" destination="tNT-Bl-fEh" id="0og-Fy-GNi"/>
                         <outlet property="guestMoneyTextField" destination="3Or-8X-Qus" id="xQb-Il-RoI"/>
+                        <outlet property="orderTableView" destination="7X5-LQ-U6d" id="2B9-od-4pf"/>
+                        <outlet property="paymentButton" destination="MLF-5h-hGm" id="Pfo-ub-iT9"/>
+                        <outlet property="totalPaymentLabel" destination="Fzf-gF-oUq" id="OsY-YC-yXA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16M-fW-sMk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

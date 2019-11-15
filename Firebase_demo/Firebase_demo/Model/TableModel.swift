@@ -10,17 +10,16 @@ import Firebase
 
 struct TableModel: Decodable {
     // Database Variable
-    var id: String!
+    var id: String! = UUID().uuidString
     var number: String? = "000"
-    var state: Int? = -1
     //Local Variable
     var bill: BillModel?
     
-    static func fetchAllData(completion: @escaping ([TableModel]?, Error?) -> Void) {
+    static func fetchAllTableData(completion: @escaping ([TableModel]?, Error?) -> Void) {
         var tables = [TableModel]()
         let db = Firestore.firestore()
         
-        db.collection("table").order(by: "state").getDocuments { (snapshot, err) in
+        db.collection("table").order(by: "number").getDocuments { (snapshot, err) in
             if err != nil {
                 print("Error getting Table Data: \(err!.localizedDescription)")
                 completion(nil, err)
@@ -36,6 +35,16 @@ struct TableModel: Decodable {
     }
 }
 
+extension TableModel: Hashable {
+    static func == (lhs: TableModel, rhs: TableModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
 extension TableModel: Mappable {
     init?(map: Map) {
     }
@@ -43,6 +52,5 @@ extension TableModel: Mappable {
     mutating func mapping(map: Map) {
         id <- map["id"]
         number <- map["number"]
-        state <- map["state"]
     }
 }

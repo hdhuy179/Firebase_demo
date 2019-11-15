@@ -13,9 +13,8 @@ struct RestaurantStaffModel: Decodable {
     var last_name: String!
     var uid: String!
     
-    static func fetchData(completion: @escaping (RestaurantStaffModel?, Error?) -> Void) {
-        let currentUser = Auth.auth().currentUser
-        if let currentUser = currentUser {
+    static func fetchUserData(completion: @escaping (RestaurantStaffModel?, Error?) -> Void) {
+        if let currentUser = Auth.auth().currentUser {
             let uid = currentUser.uid
             let db = Firestore.firestore()
             db.collection("restaurantStaff").document(uid).getDocument {(document, err) in
@@ -41,6 +40,4 @@ extension RestaurantStaffModel: Mappable {
         last_name <- map["last_name"]
         uid <- map["uid"]
     }
-    
-    
 }

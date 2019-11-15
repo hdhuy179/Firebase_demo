@@ -9,7 +9,7 @@ import ObjectMapper
 import Firebase
 
 struct DishCategoryModel: Decodable {
-    var id: String!
+    var id: String! = UUID().uuidString
     var name: String? = ""
     
     static func fetchAllDishCategory(completion: @escaping ([DishCategoryModel]?, Error?) -> Void) {

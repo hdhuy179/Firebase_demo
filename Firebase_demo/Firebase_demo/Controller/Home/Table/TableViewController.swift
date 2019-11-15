@@ -10,6 +10,9 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
+protocol TableViewControllerDelegate: class {
+}
+
 final class TableViewController: UIViewController {
 
     @IBOutlet weak var leftTableCollectionViewConstrant: NSLayoutConstraint!
@@ -28,17 +31,18 @@ final class TableViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.showActivityIndicatorView()
 //        let serialQueue = DispatchQueue(label: "load_data")
         fetchData()
-        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { (timer) in
-            if self.restaurantStaff != nil && !self.tables.isEmpty {
-                print("TableViewController: Data was fetched")
-                self.setupView()
-                self.hideActivityIndicatorView()
-                timer.invalidate()
-            }
-        }
+//        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { (timer) in
+//            if self.restaurantStaff != nil && !self.tables.isEmpty {
+//                print("TableViewController: Data was fetched")
+//                self.tableCollectionView.reloadData()
+//                self.setupView()
+//                self.hideActivityIndicatorView()
+//                timer.invalidate()
+//                print(self.tables)
+//            }
+//        }
         
     }
     
@@ -47,15 +51,17 @@ final class TableViewController: UIViewController {
     }
     
     func fetchData() {
-        RestaurantStaffModel.fetchData {[weak self] data, err in
+        self.showActivityIndicatorView()
+        RestaurantStaffModel.fetchUserData {[weak self] data, err in
             if err != nil {
                 print("TableViewController: Error getting Restaurant Staff Data: \(err!.localizedDescription)")
             } else if data != nil {
                 guard let strongSelf = self else { return }
                 strongSelf.restaurantStaff = data!
+                strongSelf.setupView()
             }
         }
-        TableModel.fetchAllData { [weak self] data, err in
+        TableModel.fetchAllTableData { [weak self] data, err in
             if err != nil {
                 print("TableViewController: Error getting Table Data: \(err!.localizedDescription)")
             } else if data != nil {
@@ -66,8 +72,14 @@ final class TableViewController: UIViewController {
                     BillModel.fetchCurrentBill(ofTableID: table.id!) { (bill, err) in
                         if err != nil {
                             print("TableViewController: Error getting Bill Data \(err!.localizedDescription)")
-                        } else if bill != nil {
-                            strongSelf.tables[index].bill = bill!
+                        } else {
+                            strongSelf.tables[index].bill = bill
+                            if table == strongSelf.tables.last {
+                                print("TableViewController: Data was fetched")
+                                print(strongSelf.tables)
+                                strongSelf.tableCollectionView.reloadData()
+                                strongSelf.hideActivityIndicatorView()
+                            }
                         }
                     }
                 }
@@ -109,6 +121,7 @@ final class TableViewController: UIViewController {
             print("Error signing out: \(error.localizedDescription)")
         }
     }
+    
 }
 
 extension TableViewController: UICollectionViewDataSource {
@@ -133,14 +146,17 @@ extension TableViewController: UICollectionViewDelegateFlowLayout {
         if table.bill == nil {
             let vc = UIStoryboard.OrderViewController
             vc.table = table
+            vc.delegate = self
             App.shared.rootNagivationController.pushViewController(vc, animated: true)
             return
         }
         
         let vc = UIStoryboard.OrderManagerViewController
         vc.table = table
+        vc.delegate = self
         App.shared.rootNagivationController.pushViewController(vc, animated: true)
     }
+    
 //    func showAlert(title: String, indexPath: IndexPath) {
 //        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
 //        alert.addAction(UIAlertAction(title: "Xác nhận", style: .default, handler: { _ in
@@ -164,6 +180,10 @@ extension TableViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension TableViewController: UICollectionViewDelegate {
+    
+}
+
+extension TableViewController: TableViewControllerDelegate {
     
 }
 

@@ -46,11 +46,11 @@ final class DishViewCell: UITableViewCell {
         dishNameLabel.text = dish.name
         dishUnitLabel.text = dish.unit
         if let price = dish.price {
-            dishPriceLabel.text = price.thousandUnits()
+            dishPriceLabel.text = price.splittedByThousandUnits()
         }
     }
 
-    @IBAction func handlePlusTap(_ sender: Any) {
+    @IBAction func handlePlusButtonTapped(_ sender: Any) {
         amount += 1
         dishAmountLabel.text = String(amount)
         dishAmountLabel.alpha = 1
@@ -58,7 +58,7 @@ final class DishViewCell: UITableViewCell {
         delegate?.changeOrderAmount(dish: dish, amount: amount)
     }
     
-    @IBAction func handleMinusTap(_ sender: Any) {
+    @IBAction func handleMinusButtonTapped(_ sender: Any) {
         if amount > 0 {
             amount -= 1
         }

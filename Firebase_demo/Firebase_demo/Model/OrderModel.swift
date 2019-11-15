@@ -16,7 +16,7 @@ import Firebase
 //}
 
 struct OrderModel: Decodable {
-    var id: String!
+    var id: String! = UUID().uuidString
     var dish: DishModel = DishModel()
     var amount: Int? = 1
     var served_amount: Int? = 0
@@ -44,10 +44,10 @@ struct OrderModel: Decodable {
                                 print("OrderModel: Error getting Dish data \(err!.localizedDescription)")
                             } else if data != nil {
                                 order.dish = data!
-                            }
-                            orders.append(order)
-                            if (document == snapshot!.documents.last) {
-                                completion(orders, nil)
+                                orders.append(order)
+                                if (document == snapshot!.documents.last) {
+                                    completion(orders, nil)
+                                }
                             }
                         }
                     }

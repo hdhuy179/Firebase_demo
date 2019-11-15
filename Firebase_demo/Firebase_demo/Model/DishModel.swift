@@ -12,7 +12,7 @@ struct DishModel: Decodable {
     var id: String!
     var name: String? = ""
     var unit: String? = ""
-    var price: Int? = 0
+    var price: Double? = 0
     var image_url: String? = ""
     var category_id: String? = ""
     
