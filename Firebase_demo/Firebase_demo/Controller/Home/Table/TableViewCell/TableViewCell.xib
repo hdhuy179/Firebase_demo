@@ -33,12 +33,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S-0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMQ-qg-K8u">
+                                <rect key="frame" x="328.5" y="108" width="25.5" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yMQ-qg-K8u" secondAttribute="trailing" constant="5" id="4tO-Kf-nNb"/>
                             <constraint firstAttribute="trailing" secondItem="Irf-cV-Ekz" secondAttribute="trailing" id="EHh-W3-IvL"/>
                             <constraint firstItem="Irf-cV-Ekz" firstAttribute="height" secondItem="qSg-AH-Mwx" secondAttribute="height" multiplier="1:4" id="LZP-vl-WWI"/>
                             <constraint firstItem="Irf-cV-Ekz" firstAttribute="top" secondItem="bja-Fi-L00" secondAttribute="bottom" constant="25" id="bi2-46-snV"/>
+                            <constraint firstItem="Irf-cV-Ekz" firstAttribute="top" secondItem="yMQ-qg-K8u" secondAttribute="bottom" id="glE-vG-RrU"/>
                             <constraint firstItem="bja-Fi-L00" firstAttribute="centerX" secondItem="qSg-AH-Mwx" secondAttribute="centerX" id="jEK-4D-ux2"/>
                             <constraint firstAttribute="bottom" secondItem="Irf-cV-Ekz" secondAttribute="bottom" id="rWE-xm-kNE"/>
                             <constraint firstItem="Irf-cV-Ekz" firstAttribute="leading" secondItem="qSg-AH-Mwx" secondAttribute="leading" id="yMD-pl-rt2"/>
@@ -56,6 +64,7 @@
             <size key="customSize" width="359" height="168"/>
             <connections>
                 <outlet property="numberLabel" destination="bja-Fi-L00" id="okI-rV-dBS"/>
+                <outlet property="sizeLabel" destination="yMQ-qg-K8u" id="e1S-t0-RgF"/>
                 <outlet property="stateLabel" destination="Irf-cV-Ekz" id="cR8-9i-qsc"/>
             </connections>
             <point key="canvasLocation" x="334.05797101449281" y="155.35714285714286"/>

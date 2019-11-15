@@ -38,6 +38,7 @@ final class SignUpViewController: UIViewController {
     }
     
     private func configView() {
+        addEndEditingTapGuesture()
         errorLabel.alpha = 0
         
         Utilities.styleTextField(firstNameTextField)
@@ -47,6 +48,7 @@ final class SignUpViewController: UIViewController {
         Utilities.styleFilledButton(signUpButton)
         Utilities.styleFilledButton(cancelButton)
     }
+    
     private func validateField() -> String?{
         if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""
             || lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""

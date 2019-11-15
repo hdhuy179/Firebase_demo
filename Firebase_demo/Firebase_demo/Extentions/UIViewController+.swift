@@ -36,6 +36,7 @@ extension UIViewController {
         aiview.startAnimating()
         backgroundView!.addSubview(aiview)
         self.view.addSubview(backgroundView!)
+        
         // If The Activity Indicator View appeared over 20 second then we put The View back to Main View
 //        Timer.scheduledTimer(withTimeInterval: 20.0, repeats: false) { (timer) in
 //            if backgroundView != nil {
@@ -55,5 +56,24 @@ extension UIViewController {
         
         //End ignore interaction events when hiding Activity Indicator View
         UIApplication.shared.endIgnoringInteractionEvents()
+    }
+}
+var tapGesture: UITapGestureRecognizer!
+extension UIViewController {
+    func addEndEditingTapGuesture() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+    }
+    @objc func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+    
+    @objc func keyboardWillShow() {
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func keyboardWillHide() {
+        self.view.removeGestureRecognizer(tapGesture)
     }
 }

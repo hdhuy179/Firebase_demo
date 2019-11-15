@@ -9,6 +9,7 @@ import ObjectMapper
 import Firebase
 
 struct DishModel: Decodable {
+    //Database Variable
     var id: String!
     var name: String? = ""
     var unit: String? = ""
@@ -16,23 +17,23 @@ struct DishModel: Decodable {
     var image_url: String? = ""
     var category_id: String? = ""
     
-    static func fetchAllDish(completion: @escaping ([DishModel]?, Error?) -> Void) {
-        var dishes = [DishModel]()
-        
-        let db = Firestore.firestore()
-        db.collection("dish").getDocuments { (snapshot, err) in
-            if err != nil {
-                completion(nil,err)
-            } else if snapshot != nil {
-                snapshot!.documents.forEach({ (document) in
-                    if let dish = DishModel(JSON: document.data()) {
-                        dishes.append(dish)
-                    }
-                })
-                completion(dishes, nil)
-            }
-        }
-    }
+//    static func fetchAllDish(completion: @escaping ([DishModel]?, Error?) -> Void) {
+//        var dishes = [DishModel]()
+//        
+//        let db = Firestore.firestore()
+//        db.collection("dish").getDocuments { (snapshot, err) in
+//            if err != nil {
+//                completion(nil,err)
+//            } else if snapshot != nil {
+//                snapshot!.documents.forEach({ (document) in
+//                    if let dish = DishModel(JSON: document.data()) {
+//                        dishes.append(dish)
+//                    }
+//                })
+//                completion(dishes, nil)
+//            }
+//        }
+//    }
     static func fetchDishes(byCategoryID categoryID: String ,completion: @escaping ([DishModel]?, Error?) -> Void) {
         var dishes = [DishModel]()
         
@@ -46,6 +47,8 @@ struct DishModel: Decodable {
                         dishes.append(dish)
                     }
                 })
+                completion(dishes, nil)
+            } else {
                 completion(dishes, nil)
             }
         }

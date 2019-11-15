@@ -43,10 +43,10 @@ final class CartViewCell: UITableViewCell {
     }
     
     @IBAction func minusButtonTapped(_ sender: Any) {
-            if amount > 0 {
-                amount -= 1
-            }
-            dishAmountLabel.text = String(amount)
-        delegate?.changeOrderAmount(dish: order.dish!, amount: amount)
+        if amount > 0 {
+            amount -= 1
         }
+        dishAmountLabel.text = String(amount)
+        delegate?.changeOrderAmount(dish: order.dish!, amount: amount)
+    }
 }

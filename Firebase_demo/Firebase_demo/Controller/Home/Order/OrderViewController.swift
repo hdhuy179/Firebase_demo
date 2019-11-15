@@ -54,15 +54,6 @@ final class OrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
-            if !self.dishesByCategory.isEmpty && !self.dishCategories.isEmpty{
-                print("OrderViewController: Data was fetched")
-                self.setupCart()
-                self.setupView()
-                self.hideActivityIndicatorView()
-                timer.invalidate()
-            }
-        }
     }
     
     deinit {
@@ -85,12 +76,12 @@ final class OrderViewController: UIViewController {
                         } else if data != nil {
                             strongSelf.dishesByCategory.append(data!)
                         }
-//                        if dishCategory == strongSelf.dishCategories.last {
-//                            print("OrderViewController: Data was fetched")
-//                            strongSelf.setupCart()
-//                            strongSelf.setupView()
-//                            strongSelf.hideActivityIndicatorView()
-//                        }
+                        if strongSelf.dishesByCategory.count == strongSelf.dishCategories.count {
+                            print("OrderViewController: Data was fetched")
+                            strongSelf.setupCart()
+                            strongSelf.setupView()
+                            strongSelf.hideActivityIndicatorView()
+                        }
                     }
                 }
             }
@@ -106,7 +97,11 @@ final class OrderViewController: UIViewController {
         dishTableView.delegate = self
         
         if let tableNumber = table?.number {
-            navigationItem.title = "Bàn \(tableNumber)"
+            if tableNumber == "" {
+                navigationItem.title = "Gọi đồ mang về"
+            } else {
+                navigationItem.title = "Bàn \(tableNumber)"
+            }
         }
         
         self.dishTableView.reloadData()
@@ -115,7 +110,7 @@ final class OrderViewController: UIViewController {
         dishTableView.register(UINib(nibName: "DishHeaderViewCell", bundle: nil), forCellReuseIdentifier: dishHeaderCellID)
         dishTableView.register(UITableViewCell.self, forCellReuseIdentifier: "space")
     }
-    
+
     func setupCart() {
         endCartHeight = self.view.frame.height * 0.8
         
@@ -145,6 +140,7 @@ final class OrderViewController: UIViewController {
 
         cartViewController.view.isHidden = true
         cartViewController.cartTableView.isHidden = true
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleCartTap))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleCartPan))
         
@@ -183,7 +179,7 @@ final class OrderViewController: UIViewController {
                 switch state {
                 case .expended:
                     self.cartViewController.view.frame.origin.y = self.view.frame.height - self.endCartHeight
-//                    self.visualEffectView.effect = UIBlurEffect(style: .light)
+                    self.visualEffectView.effect = UIBlurEffect(style: .light)
                     self.visualEffectView.isHidden = false
                     self.cartViewController.cartTableView.isHidden = false
                 case .collapsed:
@@ -309,7 +305,7 @@ extension OrderViewController: UITableViewDataSource {
 
 extension OrderViewController: OrderViewControllerDelegate {
     func changeOrderAmount(dish: DishModel, amount: Int) {
-        table?.bill?.updateOrder(withDish: dish, amount: amount)
+        table?.bill?.updateOrderList(withDish: dish, amount: amount)
         cartViewController.bill = table?.bill
         if let _ = table?.bill?.order_list {
             if table!.bill!.order_list!.isEmpty {

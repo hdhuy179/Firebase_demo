@@ -49,11 +49,21 @@ final class CartViewController: UIViewController {
         
         cartTableView.register(UINib(nibName: "CartViewCell", bundle: nil), forCellReuseIdentifier: cartCellID)
     }
+    
+    deinit {
+        logger()
+    }
+    
     @IBAction func handleOrderTapped(_ sender: Any) {
         if let _ = delegate?.table {
-            BillModel.checkOutBill(forTable: delegate!.table!) { _,_ in
+            BillModel.checkOutBill(forTable: delegate!.table!) { [weak self] err in
+                guard let strongSelf = self else { return }
+                if err != nil {
+                    print("CartViewController: Error Checking out Bill \(String(describing: strongSelf.bill?.id)) \(err!.localizedDescription)")
+                } else {
+                    strongSelf.delegate!.navigationController?.popToRootViewController(animated: true)
+                }
             }
-            delegate!.navigationController?.popViewController(animated: true)
         }
     }
 }

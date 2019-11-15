@@ -9,6 +9,7 @@ import ObjectMapper
 import Firebase
 
 struct DishCategoryModel: Decodable {
+    //Database Variable
     var id: String!
     var name: String? = ""
     

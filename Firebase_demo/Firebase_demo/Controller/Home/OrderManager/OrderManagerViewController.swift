@@ -9,7 +9,7 @@
 import UIKit
 
 protocol OrderManagerViewControllerDelegate: class {
-    func updateOrderTable(forOrder order: OrderModel, served_amount: Int)
+    func updateOrderTable(forOrder order: OrderModel)
 }
 
 final class OrderManagerViewController: UIViewController {
@@ -27,8 +27,6 @@ final class OrderManagerViewController: UIViewController {
     
     let orderManagerViewCellID = "orderViewCellID"
     
-    var tapGesture: UITapGestureRecognizer?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,8 +38,7 @@ final class OrderManagerViewController: UIViewController {
     }
     
     func setupView() {
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        observeKeyboardNotification()
+        addEndEditingTapGuesture()
         
         orderTableView.dataSource = self
         orderTableView.delegate = self
@@ -53,7 +50,7 @@ final class OrderManagerViewController: UIViewController {
         }
         guestMoneyTextField.addTarget(self, action: #selector(changeGuestMoneyTextField(_:)), for: .editingChanged)
         paymentButton.isEnabled = false
-        paymentButton.backgroundColor = .darkGray
+        paymentButton.backgroundColor = .systemGray
         
         orderTableView.register(UINib(nibName: "OrderManagerViewCell", bundle: nil), forCellReuseIdentifier: orderManagerViewCellID)
     }
@@ -67,47 +64,42 @@ final class OrderManagerViewController: UIViewController {
          guestMoneyTextField.text = Double(guestMoney)?.splittedByThousandUnits()
         if Double(guestMoney) ?? 0 >= table.bill!.getTotalPayment() {
             paymentButton.isEnabled = true
-            paymentButton.backgroundColor = .green
+            paymentButton.backgroundColor = .systemGreen
             let excessCash = Double(guestMoney)! - table.bill!.getTotalPayment()
             excessCashLabel.text = String(excessCash.splittedByThousandUnits())
         } else {
             excessCashLabel.text = ""
             paymentButton.isEnabled = false
-            paymentButton.backgroundColor = .darkGray
+            paymentButton.backgroundColor = .systemGray
         }
     }
     
     @IBAction func handlePaymentButtonTapped(_ sender: Any) {
-        table.bill?.is_paid = true
-        BillModel.checkOutBill(forTable: table) { (_, _) in
-            App.shared.rootNagivationController.popViewController(animated: true)
+        BillModel.getPaid(forTable: table) { [weak self] err in
+            guard let strongSelf = self else { return }
+            if err != nil {
+                print("OrderManagerViewController: Bill \(String(describing: strongSelf.table.bill?.id)) is not paid")
+            } else {
+                App.shared.rootNagivationController.popViewController(animated: true)
+            }
         }
     }
     
-    private func observeKeyboardNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardShow() {
+    @objc override func keyboardWillShow() {
+        super.keyboardWillShow()
         if guestMoneyTextField.isEditing {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.view.frame = CGRect(x: 0, y: -self.view.frame.height + self.guestMoneyTextField.frame.origin.y + self.guestMoneyTextField.frame.height, width: self.view.frame.width, height: self.view.frame.height)
             }, completion: nil)
         }
-        self.view.addGestureRecognizer(tapGesture!)
     }
-    @objc func keyboardHide() {
+    @objc override func keyboardWillHide() {
+        super.keyboardWillHide()
         if guestMoneyTextField.isEditing {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
             }, completion: nil)
         }
-        self.view.removeGestureRecognizer(tapGesture!)
-    }
-    
-    @objc func dismissKeyboard() {
-        self.view.endEditing(true)
     }
     
     override func willMove(toParent parent: UIViewController?) {
@@ -116,6 +108,16 @@ final class OrderManagerViewController: UIViewController {
 //            delegate?.tableCollectionView.reloadData()
         }
     }
+    
+    @IBAction func orderMoreButtonTapped(_ sender: Any) {
+        App.shared.rootNagivationController.popToRootViewController(animated: true)
+        self.hideActivityIndicatorView()
+        let vc = UIStoryboard.OrderViewController
+        vc.table = table
+        vc.delegate = delegate
+        App.shared.rootNagivationController.pushViewController(vc, animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -146,7 +148,8 @@ extension OrderManagerViewController: UITableViewDataSource {
         if let order = table.bill?.order_list?[indexPath.item] {
             showAlert(order) { [weak self] served_amount in
                 guard let strongSelf = self else { return }
-                strongSelf.updateOrderTable(forOrder: strongSelf.table.bill!.order_list![indexPath.item], served_amount: served_amount)
+                strongSelf.table.bill!.order_list![indexPath.item].served_amount = served_amount
+                strongSelf.updateOrderTable(forOrder: strongSelf.table.bill!.order_list![indexPath.item])
             }
         }
     }
@@ -189,23 +192,24 @@ extension OrderManagerViewController: UITableViewDelegate {
 
 extension OrderManagerViewController: OrderManagerViewControllerDelegate {
     
-    func updateOrderTable(forOrder order: OrderModel, served_amount: Int) {
+    func updateOrderTable(forOrder order: OrderModel) {
         self.showActivityIndicatorView()
-        if let _ = table.bill?.order_list {
-            table.bill!.order_list!.enumerated().forEach { (index, element) in
-                if element == order {
-                    table.bill!.order_list![index].served_amount = served_amount
+        
+        OrderModel.updateOrder(forTable: self.table, withOrder: order) { [weak self] newOrder, err  in
+            guard let strongSelf = self else { return }
+            if err != nil {
+                print("BillModel: Error check out Bill \(strongSelf.table.bill!.id!) \(err!.localizedDescription)")
+            } else if newOrder != nil{
+                if let _ = strongSelf.table.bill?.order_list {
+                    strongSelf.table.bill!.order_list!.enumerated().forEach { (index, element) in
+                        if element == newOrder {
+                            strongSelf.table.bill!.order_list![index].served_amount = newOrder!.served_amount
+                            strongSelf.orderTableView.reloadData()
+                            strongSelf.hideActivityIndicatorView()
+                        }
+                    }
                 }
             }
-        }
-        BillModel.checkOutBill(forTable: self.table) { (bill, err) in
-            if err != nil {
-                print("BillModel: Error check out Bill \(self.table.bill!.id!) \(err!.localizedDescription)")
-            } else if bill != nil {
-                self.table.bill = bill
-            }
-            self.orderTableView.reloadData()
-            self.hideActivityIndicatorView()
         }
     }
 }

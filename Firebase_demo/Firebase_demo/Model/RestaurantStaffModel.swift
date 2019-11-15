@@ -9,11 +9,16 @@ import ObjectMapper
 import Firebase
 
 struct RestaurantStaffModel: Decodable {
+    //Database Variable
+    var uid: String!
     var first_name: String! = ""
     var last_name: String! = ""
-    var uid: String! = ""
+    var address: String? = ""
+    var phone: String? = ""
+    var email: String? = ""
+    var identifier_card: String? = ""
     
-    static func fetchUserData(completion: @escaping (RestaurantStaffModel?, Error?) -> Void) {
+    static func fetchStaffData(completion: @escaping (RestaurantStaffModel?, Error?) -> Void) {
         if let currentUser = Auth.auth().currentUser {
             let uid = currentUser.uid
             let db = Firestore.firestore()
@@ -39,5 +44,9 @@ extension RestaurantStaffModel: Mappable {
         first_name <- map["first_name"]
         last_name <- map["last_name"]
         uid <- map["uid"]
+        address <- map["address"]
+        phone <- map["phone"]
+        email <- map["email"]
+        identifier_card <- map["identifier_card"]
     }
 }

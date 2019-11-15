@@ -16,12 +16,12 @@ import Firebase
 //}
 
 struct OrderModel: Decodable {
-    //
+    //Database Variable
     var id: String! = UUID().uuidString
     var amount: Int? = 1
     var served_amount: Int? = 0
     var dish_id: String? = ""
-    //
+    //Local Variable
     var dish: DishModel!
     
     func checkOrderServed() -> Bool {
@@ -75,6 +75,22 @@ struct OrderModel: Decodable {
                     
                 } else {
                     completion(nil, nil)
+                }
+            }
+    }
+    
+    static func updateOrder(forTable table: TableModel, withOrder order: OrderModel, completion: @escaping (OrderModel?, Error?) -> Void) {
+        let db = Firestore.firestore()
+        if let _ = order.id, let _ = order.dish.id, let _ = order.amount, let _ = order.served_amount {
+                db.collection("bill").document(table.bill!.id!)
+                    .collection("order").document(order.id!)
+                    .setData(["served_amount": order.served_amount!], merge: true) { err in
+                        if err != nil {
+                            completion(nil, err)
+                        } else {
+                            print("OrderModel: Update Order \(order.id!) successful")
+                            completion(order, nil)
+                        }
                 }
             }
     }

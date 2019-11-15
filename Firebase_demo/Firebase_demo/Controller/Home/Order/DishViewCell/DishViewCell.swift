@@ -28,14 +28,18 @@ final class DishViewCell: UITableViewCell {
     
     var amount: Int! = 0 {
         didSet {
-            dishAmountLabel.text = String(amount)
-            if amount == 0 {
-                dishAmountLabel.alpha = 0
-                minusButton.alpha = 0
-            } else {
-                dishAmountLabel.alpha = 1
-                minusButton.alpha = 1
-            }
+            updateView()
+        }
+    }
+    
+    func updateView() {
+        dishAmountLabel.text = String(amount)
+        if amount == 0 {
+            dishAmountLabel.alpha = 0
+            minusButton.alpha = 0
+        } else {
+            dishAmountLabel.alpha = 1
+            minusButton.alpha = 1
         }
     }
     
@@ -52,22 +56,15 @@ final class DishViewCell: UITableViewCell {
 
     @IBAction func handlePlusButtonTapped(_ sender: Any) {
         amount += 1
-        dishAmountLabel.text = String(amount)
-        dishAmountLabel.alpha = 1
-        minusButton.alpha = 1
         delegate?.changeOrderAmount(dish: dish, amount: amount)
+        updateView()
     }
     
     @IBAction func handleMinusButtonTapped(_ sender: Any) {
         if amount > 0 {
             amount -= 1
         }
-        if amount == 0 {
-            dishAmountLabel.alpha = 0
-            minusButton.alpha = 0
-        }
-        dishAmountLabel.text = String(amount)
         delegate?.changeOrderAmount(dish: dish, amount: amount)
+        updateView()
     }
-    
 }

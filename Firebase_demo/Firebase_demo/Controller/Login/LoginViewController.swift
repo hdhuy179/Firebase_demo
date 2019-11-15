@@ -33,6 +33,7 @@ final class LoginViewController: UIViewController {
     }
     
     private func configView() {
+        addEndEditingTapGuesture()
         errorLabel.alpha = 0
         
         Utilities.styleTextField(emailTextField)

@@ -10,9 +10,10 @@ import Firebase
 
 struct TableModel: Decodable {
     // Database Variable
-    var id: String!
-    var number: String! = "000"
-    //Local Variable
+    var id: String! = ""
+    var number: String? = ""
+    var size: Int? = 0
+    // Local Variable
     var bill: BillModel?
     
     static func fetchAllTableData(completion: @escaping ([TableModel]?, Error?) -> Void) {
@@ -36,12 +37,6 @@ struct TableModel: Decodable {
                         } else {
                             tables[index].bill = bill
                         }
-//                        for table in tables {
-//                            if table.bill == nil {
-//                                break
-//                            }
-//                            completion(tables, nil)
-//                        }
                         if !tables.contains(where: { (table) -> Bool in
                             if table.bill == nil {
                                 return true
@@ -76,5 +71,6 @@ extension TableModel: Mappable {
     mutating func mapping(map: Map) {
         id <- map["id"]
         number <- map["number"]
+        size <- map["size"]
     }
 }

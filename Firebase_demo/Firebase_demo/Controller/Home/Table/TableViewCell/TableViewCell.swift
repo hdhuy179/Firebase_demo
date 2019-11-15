@@ -12,6 +12,7 @@ final class TableViewCell: UICollectionViewCell {
 
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
     
     var table: TableModel! {
         didSet {
@@ -20,7 +21,10 @@ final class TableViewCell: UICollectionViewCell {
     }
     
     func setupView() {
-        numberLabel.text = table.number
+        if let size = table.size, let number = table.number {
+            numberLabel.text = number
+            sizeLabel.text = "S-\(size)"
+        }
         switch table.bill?.isBillServed() {
         case nil:
             stateLabel.text = "Trống"

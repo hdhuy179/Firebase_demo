@@ -18,6 +18,8 @@
 		F732E5C9236B175900B7CFAF /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F732E5C7236B175800B7CFAF /* CartViewController.swift */; };
 		F732E5CA236B175900B7CFAF /* CartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F732E5C8236B175900B7CFAF /* CartViewController.xib */; };
 		F732E5CC236B290E00B7CFAF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F732E5CB236B290E00B7CFAF /* GoogleService-Info.plist */; };
+		F73833A1238B718E00DD598C /* BillHistoryTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73833A0238B718E00DD598C /* BillHistoryTabBarViewController.swift */; };
+		F73833A3238B77F400DD598C /* PeriodBillHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73833A2238B77F400DD598C /* PeriodBillHistoryViewController.swift */; };
 		F73865AF23545B58005E95A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73865AE23545B58005E95A0 /* AppDelegate.swift */; };
 		F73865B423545B58005E95A0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F73865B223545B58005E95A0 /* Login.storyboard */; };
 		F73865B623545B5A005E95A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F73865B523545B5A005E95A0 /* Assets.xcassets */; };
@@ -37,19 +39,24 @@
 		F73A3A3D236EB3F700FCCFBA /* OrderManagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A3A3B236EB3F700FCCFBA /* OrderManagerViewCell.swift */; };
 		F73A3A3E236EB3F700FCCFBA /* OrderManagerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F73A3A3C236EB3F700FCCFBA /* OrderManagerViewCell.xib */; };
 		F73A5150236A80CB00DDA48A /* DishModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A514F236A80CB00DDA48A /* DishModel.swift */; };
+		F73BE0E5238D12B600533D56 /* BillTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73BE0E3238D12B600533D56 /* BillTableViewCell.swift */; };
+		F73BE0E6238D12B600533D56 /* BillTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F73BE0E4238D12B600533D56 /* BillTableViewCell.xib */; };
+		F73E600E23A3658D00D14F32 /* KitchenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73E600D23A3658D00D14F32 /* KitchenViewController.swift */; };
 		F741366F2360614A00DA1338 /* DishViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F741366D2360614A00DA1338 /* DishViewCell.swift */; };
 		F74136702360614A00DA1338 /* DishViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F741366E2360614A00DA1338 /* DishViewCell.xib */; };
 		F7413DCA237146B2005ED5CB /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7413DC9237146B2005ED5CB /* UIImageView+.swift */; };
 		F7446DDC23614C84004673C9 /* FloorViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7446DDB23614C84004673C9 /* FloorViewCell.swift */; };
 		F7446DE023615954004673C9 /* TableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7446DDF23615954004673C9 /* TableModel.swift */; };
 		F749E384235B0EDA00B76D65 /* FloorViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F749E382235B0EDA00B76D65 /* FloorViewCell.xib */; };
+		F74E1C052385467700D46C28 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74E1C042385467700D46C28 /* Date+.swift */; };
 		F75096AA2355AB48003A7D3E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75096A92355AB48003A7D3E /* App.swift */; };
 		F75096AC2355ABF7003A7D3E /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75096AB2355ABF7003A7D3E /* UserDefaults+.swift */; };
 		F75607632360937200E87E6F /* DishHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75607612360937200E87E6F /* DishHeaderViewCell.swift */; };
 		F75607642360937200E87E6F /* DishHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F75607622360937200E87E6F /* DishHeaderViewCell.xib */; };
+		F788DC802383AB330054145F /* TakeawayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F788DC7F2383AB330054145F /* TakeawayViewController.swift */; };
 		F7A5A2422369471800E2B621 /* RestaurantStaffModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A5A2412369471800E2B621 /* RestaurantStaffModel.swift */; };
+		F7B30F15238A459200CF1EB7 /* TextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B30F14238A459200CF1EB7 /* TextField+.swift */; };
 		F7BD9915235DAA1E006B073C /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BD9914235DAA1E006B073C /* OrderViewController.swift */; };
-		F7D4BAD623618FB300D32F36 /* TableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D4BAD523618FB300D32F36 /* TableState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +73,8 @@
 		F732E5C7236B175800B7CFAF /* CartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		F732E5C8236B175900B7CFAF /* CartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartViewController.xib; sourceTree = "<group>"; };
 		F732E5CB236B290E00B7CFAF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F73833A0238B718E00DD598C /* BillHistoryTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillHistoryTabBarViewController.swift; sourceTree = "<group>"; };
+		F73833A2238B77F400DD598C /* PeriodBillHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodBillHistoryViewController.swift; sourceTree = "<group>"; };
 		F73865AB23545B58005E95A0 /* Firebase_demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Firebase_demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F73865AE23545B58005E95A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F73865B323545B58005E95A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
@@ -87,19 +96,24 @@
 		F73A3A3B236EB3F700FCCFBA /* OrderManagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderManagerViewCell.swift; sourceTree = "<group>"; };
 		F73A3A3C236EB3F700FCCFBA /* OrderManagerViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderManagerViewCell.xib; sourceTree = "<group>"; };
 		F73A514F236A80CB00DDA48A /* DishModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishModel.swift; sourceTree = "<group>"; };
+		F73BE0E3238D12B600533D56 /* BillTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillTableViewCell.swift; sourceTree = "<group>"; };
+		F73BE0E4238D12B600533D56 /* BillTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BillTableViewCell.xib; sourceTree = "<group>"; };
+		F73E600D23A3658D00D14F32 /* KitchenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KitchenViewController.swift; sourceTree = "<group>"; };
 		F741366D2360614A00DA1338 /* DishViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishViewCell.swift; sourceTree = "<group>"; };
 		F741366E2360614A00DA1338 /* DishViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DishViewCell.xib; sourceTree = "<group>"; };
 		F7413DC9237146B2005ED5CB /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		F7446DDB23614C84004673C9 /* FloorViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorViewCell.swift; sourceTree = "<group>"; };
 		F7446DDF23615954004673C9 /* TableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableModel.swift; sourceTree = "<group>"; };
 		F749E382235B0EDA00B76D65 /* FloorViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FloorViewCell.xib; sourceTree = "<group>"; };
+		F74E1C042385467700D46C28 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		F75096A92355AB48003A7D3E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		F75096AB2355ABF7003A7D3E /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		F75607612360937200E87E6F /* DishHeaderViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishHeaderViewCell.swift; sourceTree = "<group>"; };
 		F75607622360937200E87E6F /* DishHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishHeaderViewCell.xib; sourceTree = "<group>"; };
+		F788DC7F2383AB330054145F /* TakeawayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeawayViewController.swift; sourceTree = "<group>"; };
 		F7A5A2412369471800E2B621 /* RestaurantStaffModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantStaffModel.swift; sourceTree = "<group>"; };
+		F7B30F14238A459200CF1EB7 /* TextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+.swift"; sourceTree = "<group>"; };
 		F7BD9914235DAA1E006B073C /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
-		F7D4BAD523618FB300D32F36 /* TableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,17 +215,19 @@
 				F73865D323548171005E95A0 /* UIStoryboard+.swift */,
 				F7413DC9237146B2005ED5CB /* UIImageView+.swift */,
 				F7000B7B237AA50200D05E62 /* Double+.swift */,
+				F74E1C042385467700D46C28 /* Date+.swift */,
+				F7B30F14238A459200CF1EB7 /* TextField+.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
 		};
-		F73A3A37236EAC4D00FCCFBA /* Manage */ = {
+		F73A3A37236EAC4D00FCCFBA /* OrderManager */ = {
 			isa = PBXGroup;
 			children = (
 				F73A3A38236EB39600FCCFBA /* OrderManagerViewController.swift */,
 				F73A3A40236EB40600FCCFBA /* ManageViewCell */,
 			);
-			path = Manage;
+			path = OrderManager;
 			sourceTree = "<group>";
 		};
 		F73A3A40236EB40600FCCFBA /* ManageViewCell */ = {
@@ -221,6 +237,15 @@
 				F73A3A3C236EB3F700FCCFBA /* OrderManagerViewCell.xib */,
 			);
 			path = ManageViewCell;
+			sourceTree = "<group>";
+		};
+		F73BE0E7238D12BC00533D56 /* BillTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				F73BE0E3238D12B600533D56 /* BillTableViewCell.swift */,
+				F73BE0E4238D12B600533D56 /* BillTableViewCell.xib */,
+			);
+			path = BillTableCell;
 			sourceTree = "<group>";
 		};
 		F74136652360584F00DA1338 /* Scences */ = {
@@ -248,7 +273,10 @@
 				F73975E223599CAD00156C6E /* RootNavigationController.swift */,
 				F7413668236058AD00DA1338 /* Table */,
 				F7446DD823614755004673C9 /* Order */,
-				F73A3A37236EAC4D00FCCFBA /* Manage */,
+				F73A3A37236EAC4D00FCCFBA /* OrderManager */,
+				F7BCA56A2387DBE200882C29 /* BillHistory */,
+				F788DC812383AB390054145F /* Takeaway */,
+				F73E600D23A3658D00D14F32 /* KitchenViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -306,7 +334,6 @@
 			children = (
 				F73975E42359AD5400156C6E /* TableViewCell.swift */,
 				F73975E52359AD5400156C6E /* TableViewCell.xib */,
-				F7D4BAD523618FB300D32F36 /* TableState.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -333,6 +360,14 @@
 			path = CartViewCell;
 			sourceTree = "<group>";
 		};
+		F788DC812383AB390054145F /* Takeaway */ = {
+			isa = PBXGroup;
+			children = (
+				F788DC7F2383AB330054145F /* TakeawayViewController.swift */,
+			);
+			path = Takeaway;
+			sourceTree = "<group>";
+		};
 		F7A5A2402369453300E2B621 /* CartView */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +376,16 @@
 				F788927C23635C17005E475D /* CartViewCell */,
 			);
 			path = CartView;
+			sourceTree = "<group>";
+		};
+		F7BCA56A2387DBE200882C29 /* BillHistory */ = {
+			isa = PBXGroup;
+			children = (
+				F73833A0238B718E00DD598C /* BillHistoryTabBarViewController.swift */,
+				F73833A2238B77F400DD598C /* PeriodBillHistoryViewController.swift */,
+				F73BE0E7238D12BC00533D56 /* BillTableCell */,
+			);
+			path = BillHistory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,6 +448,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F73BE0E6238D12B600533D56 /* BillTableViewCell.xib in Resources */,
 				F74136702360614A00DA1338 /* DishViewCell.xib in Resources */,
 				F73865B923545B5A005E95A0 /* LaunchScreen.storyboard in Resources */,
 				F73975E72359AD5400156C6E /* TableViewCell.xib in Resources */,
@@ -468,16 +514,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F73833A1238B718E00DD598C /* BillHistoryTabBarViewController.swift in Sources */,
 				F7413DCA237146B2005ED5CB /* UIImageView+.swift in Sources */,
 				F72E98092370690B00BC68B9 /* DishCategoryModel.swift in Sources */,
 				F741366F2360614A00DA1338 /* DishViewCell.swift in Sources */,
 				F75096AA2355AB48003A7D3E /* App.swift in Sources */,
-				F7D4BAD623618FB300D32F36 /* TableState.swift in Sources */,
 				F73A3A3D236EB3F700FCCFBA /* OrderManagerViewCell.swift in Sources */,
 				F73865D223547EF1005E95A0 /* UIViewController+.swift in Sources */,
 				F730A7A72373E30F00B1E048 /* BillModel.swift in Sources */,
 				F75096AC2355ABF7003A7D3E /* UserDefaults+.swift in Sources */,
 				F7BD9915235DAA1E006B073C /* OrderViewController.swift in Sources */,
+				F73E600E23A3658D00D14F32 /* KitchenViewController.swift in Sources */,
 				F73865CD235474CE005E95A0 /* Utilities.swift in Sources */,
 				F73865CA2354728B005E95A0 /* MainViewController.swift in Sources */,
 				F7446DDC23614C84004673C9 /* FloorViewCell.swift in Sources */,
@@ -488,15 +535,20 @@
 				F73865C82354726E005E95A0 /* LoginViewController.swift in Sources */,
 				F7000B7C237AA50200D05E62 /* Double+.swift in Sources */,
 				F732E5C9236B175900B7CFAF /* CartViewController.swift in Sources */,
+				F73BE0E5238D12B600533D56 /* BillTableViewCell.swift in Sources */,
 				F73865D423548171005E95A0 /* UIStoryboard+.swift in Sources */,
 				F73865AF23545B58005E95A0 /* AppDelegate.swift in Sources */,
 				F73975E62359AD5400156C6E /* TableViewCell.swift in Sources */,
+				F73833A3238B77F400DD598C /* PeriodBillHistoryViewController.swift in Sources */,
 				F72AEBBD236359AF0033D3B6 /* CartViewCell.swift in Sources */,
 				F73865C3235471F6005E95A0 /* TableViewController.swift in Sources */,
 				F730A7A92373FF2F00B1E048 /* OrderModel.swift in Sources */,
 				F73865C623547239005E95A0 /* SignUpViewController.swift in Sources */,
 				F75607632360937200E87E6F /* DishHeaderViewCell.swift in Sources */,
+				F74E1C052385467700D46C28 /* Date+.swift in Sources */,
 				F7446DE023615954004673C9 /* TableModel.swift in Sources */,
+				F788DC802383AB330054145F /* TakeawayViewController.swift in Sources */,
+				F7B30F15238A459200CF1EB7 /* TextField+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

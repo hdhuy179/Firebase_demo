@@ -41,6 +41,13 @@ extension UIStoryboard {
         }
         return vc
     }
+    // Variable for Root Navigation Controller
+    static var RootNavigationController: RootNavigationController {
+        guard let vc = UIStoryboard.home.instantiateViewController(withIdentifier: "RootNavigationController") as? RootNavigationController else {
+            fatalError("RootNavigationController couldn't be found in Storyboard file")
+        }
+        return vc
+    }
     // Variable for Table View Controller
     static var TableViewController: TableViewController {
         guard let vc = UIStoryboard.home.instantiateViewController(withIdentifier: "TableViewController") as? TableViewController else {
@@ -62,10 +69,31 @@ extension UIStoryboard {
         }
         return vc
     }
-    // Variable for Root Navigation Controller
-    static var RootNavigationController: RootNavigationController {
-        guard let vc = UIStoryboard.home.instantiateViewController(withIdentifier: "RootNavigationController") as? RootNavigationController else {
-            fatalError("RootNavigationController couldn't be found in Storyboard file")
+    //Variable for Takeaway View Controller
+    static var TakeawayViewController: TakeawayViewController {
+        guard let vc = UIStoryboard.home.instantiateViewController(withIdentifier: "TakeawayViewController") as? TakeawayViewController else {
+            fatalError("TakeawayViewController couldn't be found in Storyboard file")
+        }
+        return vc
+    }
+    //Variable for Bill History View Controller
+    static var BillHistoryTabBarViewController: BillHistoryTabBarViewController {
+        guard let vc = UIStoryboard.home.instantiateViewController(withIdentifier: "BillHistoryTabBarViewController") as? BillHistoryTabBarViewController else {
+            fatalError("BillHistoryTabBarViewController couldn't be found in Storyboard file")
+        }
+        return vc
+    }
+    //Variable for Period Bill History View Controller
+    static var PeriodBillHistoryViewController: PeriodBillHistoryViewController {
+        guard let vc = UIStoryboard.home.instantiateViewController(withIdentifier: "PeriodBillHistoryViewController") as? PeriodBillHistoryViewController else {
+            fatalError("PeriodBillHistoryViewController couldn't be found in Storyboard file")
+        }
+        return vc
+    }
+    //Variable for Kitchen View Controller
+    static var KitchenViewController: KitchenViewController {
+        guard let vc = UIStoryboard.home.instantiateViewController(withIdentifier: "KitchenViewController") as? KitchenViewController else {
+            fatalError("KitchenViewController couldn't be found in Storyboard file")
         }
         return vc
     }

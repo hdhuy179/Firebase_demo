@@ -22,24 +22,21 @@ class OrderManagerViewCell: UITableViewCell {
        }
     
     func setupView() {
-        if let _ = order.dish.name, let _ = order.amount, let _ = order.served_amount {
-            dishNameLabel.text = order.dish.name
+        if let _ = order.dish.name, let _ = order.dish.price, let _ = order.amount, let _ = order.served_amount {
+            dishNameLabel.text = "\(order.dish.name!)\n\(order.dish.price!.splittedByThousandUnits())"
             progressLabel.text = "\(order.served_amount!)/\(order.amount!)"
             if order.checkOrderServed() {
                 finishDishOrderButton.isEnabled = false
+                finishDishOrderButton.backgroundColor = .systemGray
+            } else {
+                finishDishOrderButton.isEnabled = true
+                finishDishOrderButton.backgroundColor = .systemGreen
             }
         }
     }
     
     @IBAction func handleFinishDishOrder(_ sender: Any) {
-//        finishDishOrderButton.isEnabled = false
-//        finishDishOrderButton.backgroundColor = .darkGray
-//        finishDishOrderButton.setTitleColor(.lightGray, for: .disabled)
-        delegate?.updateOrderTable(forOrder: order, served_amount: order.amount!)
+        order.served_amount = order.amount
+        delegate?.updateOrderTable(forOrder: order)
     }
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
-    
 }
